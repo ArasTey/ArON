@@ -5,7 +5,7 @@
 <h1 align="center">ArON</h1>
 
 <p align="center">
-  کلاینت VPN دسکتاپ با رابط شیشه‌ای (Liquid Glass) — بر پایهٔ MehrON (انشعاب v2rayN)،<br/>
+  کلاینت VPN دسکتاپ با رابط شیشه‌ای (Liquid Glass) —<br/>
   بومی روی مک، راحت روی ویندوز.
 </p>
 
@@ -46,6 +46,6 @@ dotnet publish v2rayN/v2rayN.Desktop -c Release -r osx-arm64 --self-contained tr
 
 ## لایسنس
 
-GPL-3.0 — انشعابی از [MehrON](https://github.com/yastorovsky/MehrON) بر پایهٔ [v2rayN](https://github.com/2dust/v2rayN). با تشکر از هر دو جامعه و تیم‌های موتورهای هسته.
+GPL-3.0 — [LICENSE](LICENSE).
 
 <p align="center"><a href="README.md">English</a></p>

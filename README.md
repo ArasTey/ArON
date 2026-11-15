@@ -5,7 +5,7 @@
 <h1 align="center">ArON</h1>
 
 <p align="center">
-  A desktop VPN client with a liquid-glass UI — built on MehrON (v2rayN fork),<br/>
+  A desktop VPN client with a liquid-glass UI —<br/>
   native on macOS, at home on Windows.
 </p>
 
@@ -34,7 +34,7 @@ Grab the latest build from [Releases](https://github.com/ArasTey/ArON/releases):
 - **TUN mode that actually works** — full system routing with DNS-leak protection: while connected, all system DNS goes through the tunnel, and your original settings are restored on disconnect, so censored sites open right in the browser
 - **Multi-core engine** — Xray, sing-box, mihomo, and aether (with embedded Psiphon) bundled; no downloads needed on first run
 - **Native macOS feel** — real app menu with ⌘ shortcuts, Dock and ⌘-Tab presence, system font, and its own icon
-- **Share-link ready** — `vless://`, `vmess://`, `trojan://`, `ss://` imports, subscriptions, QR scanning, and encrypted `.arasc`-style config cards
+- **Share-link ready** — `vless://`, `vmess://`, `trojan://`, `ss://` imports, subscriptions, QR scanning, and encrypted config cards
 
 ## Build
 
@@ -47,6 +47,6 @@ For Windows use `-r win-x64`. The app stores its configs next to the binary (por
 
 ## License
 
-GPL-3.0 — a fork of [MehrON](https://github.com/yastorovsky/MehrON), based on [v2rayN](https://github.com/2dust/v2rayN). Thanks to both communities and every core engine team.
+GPL-3.0 — see [LICENSE](LICENSE).
 
 <p align="center" dir="rtl"><a href="README.fa.md">فارسی 🇮🇷</a></p>
