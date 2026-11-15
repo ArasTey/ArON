@@ -13,7 +13,16 @@ public partial class ThemeSettingView : ReactiveUserControl<ThemeSettingViewMode
         InitializeComponent();
         ViewModel = new ThemeSettingViewModel();
 
-        cmbCurrentTheme.ItemsSource = Utils.GetEnumNames<ETheme>();
+        cmbCurrentTheme.ItemsSource = Utils.GetEnumNames<ETheme>()
+            .Select(x => new ThemeOption(x, x switch
+            {
+                nameof(ETheme.FollowSystem) => "Follow system",
+                nameof(ETheme.AncientIran) => "Ancient Iran",
+                nameof(ETheme.NightSky) => "Night sky",
+                _ => x,
+            })).ToList();
+        cmbCurrentTheme.DisplayMemberBinding = new Binding(nameof(ThemeOption.Display));
+        cmbCurrentTheme.SelectedValueBinding = new Binding(nameof(ThemeOption.Value));
         cmbCurrentFontSize.ItemsSource = Enumerable.Range(Global.MinFontSize, Global.MinFontSizeCount).ToList();
         cmbCurrentLanguage.ItemsSource = Global.LanguageOptions;
         cmbCurrentLanguage.DisplayMemberBinding = new Binding(nameof(LanguageOption.Display));

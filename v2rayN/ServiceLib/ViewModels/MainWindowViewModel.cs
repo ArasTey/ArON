@@ -840,7 +840,6 @@ public partial class MainWindowViewModel : MyReactiveObject
             var profileItem = await ConfigHandler.GetDefaultServer(_config);
             if (profileItem == null)
             {
-                NoticeManager.Instance.Enqueue(ResUI.CheckServerSettings);
                 return;
             }
             var allResult = await CoreConfigContextBuilder.BuildAll(_config, profileItem);

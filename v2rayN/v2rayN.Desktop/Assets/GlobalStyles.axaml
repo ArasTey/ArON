@@ -1,36 +1,808 @@
 <Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <ControlTheme x:Key="ChipFilterListBoxItem" TargetType="ListBoxItem">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="0,0,8,8" />
+            <Setter Property="Padding" Value="11,0" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition
+                        Property="RenderTransform"
+                        Duration="0:0:0.16"
+                        Easing="CubicEaseOut" />
+                </Transitions>
+            </Setter>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        Name="ChipBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.16" />
+                                <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+                            </Transitions>
+                        </Border.Transitions>
+                        <StackPanel
+                            Margin="{TemplateBinding Padding}"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="6">
+                            <Panel
+                                Width="13"
+                                Height="13"
+                                VerticalAlignment="Center">
+                                <PathIcon
+                                    x:Name="ChipTick"
+                                    Width="13"
+                                    Height="13"
+                                    Data="{StaticResource SemiIconTick}"
+                                    Foreground="{DynamicResource GlassThemeIconBrush}"
+                                    Opacity="0"
+                                    RenderTransformOrigin="50%,50%" />
+                            </Panel>
+                            <ContentPresenter
+                                Name="PART_ContentPresenter"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^ /template/ PathIcon#ChipTick">
+                <Setter Property="RenderTransform" Value="scale(0.5)" />
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition
+                            Property="Opacity"
+                            Duration="0:0:0.14"
+                            Easing="CubicEaseOut" />
+                        <TransformOperationsTransition
+                            Property="RenderTransform"
+                            Duration="0:0:0.18"
+                            Easing="CubicEaseOut" />
+                    </Transitions>
+                </Setter>
+            </Style>
+            <Style Selector="^:pointerover">
+                <Setter Property="RenderTransform" Value="scale(1.02)" />
+            </Style>
+            <Style Selector="^:pointerover /template/ Border#ChipBorder">
+                <Setter Property="Background" Value="{DynamicResource GlassBarBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+            </Style>
+            <Style Selector="^:pressed">
+                <Setter Property="RenderTransform" Value="scale(0.97)" />
+            </Style>
+            <Style Selector="^:selected">
+                <Setter Property="Foreground" Value="{DynamicResource GlassActionForegroundBrush}" />
+            </Style>
+            <Style Selector="^:selected /template/ Border#ChipBorder">
+                <Setter Property="Background" Value="{DynamicResource GlassChipSelectedBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource GlassChipSelectedBorderBrush}" />
+            </Style>
+            <Style Selector="^:selected /template/ PathIcon#ChipTick">
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="RenderTransform" Value="scale(1)" />
+            </Style>
+            <Style Selector="^:selected:pointerover /template/ Border#ChipBorder">
+                <Setter Property="Background" Value="{DynamicResource GlassChipSelectedHoverBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource GlassChipSelectedBorderBrush}" />
+            </Style>
+            <Style Selector="^:focus-visible /template/ Border#ChipBorder">
+                <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+            </Style>
+        </ControlTheme>
+    </Styles.Resources>
+
+    <Style Selector="ListBox.ChipFilter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="ItemContainerTheme" Value="{StaticResource ChipFilterListBoxItem}" />
+        <Setter Property="ItemsPanel">
+            <ItemsPanelTemplate>
+                <WrapPanel />
+            </ItemsPanelTemplate>
+        </Setter>
+    </Style>
+
     <Design.PreviewWith>
         <Border Padding="20">
             <!--  Add Controls for Previewer Here  -->
         </Border>
     </Design.PreviewWith>
 
+    <Style Selector="Border.GlassPanel">
+        <Setter Property="Background" Value="{DynamicResource GlassPanelBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="22" />
+        <Setter Property="BoxShadow" Value="{DynamicResource GlassPanelShadow}" />
+        <Style.Animations>
+            <Animation
+                Duration="0:0:0.34"
+                Easing="CubicEaseOut"
+                FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Border.GlassBar">
+        <Setter Property="Background" Value="{DynamicResource GlassBarBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="BoxShadow" Value="{DynamicResource GlassBarShadow}" />
+    </Style>
+
+    <Style Selector="Border.GlassInset">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+    </Style>
+
+    <Style Selector="Border.WindowShell">
+        <Setter Property="Background" Value="{DynamicResource GlassPanelBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="18" />
+        <Setter Property="BoxShadow" Value="{DynamicResource GlassPanelShadow}" />
+        <Style.Animations>
+            <Animation
+                Duration="0:0:0.26"
+                Easing="CubicEaseOut"
+                FillMode="Forward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Border.DialogHeader">
+        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="Background" Value="{DynamicResource GlassHeaderBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ArONHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+    </Style>
+
+    <Style Selector="TextBlock.WindowTitle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.DialogHint">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.PageTitle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="21" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.PageSubtitle">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="Border.CountPill">
+        <Setter Property="Padding" Value="8,2" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="999" />
+    </Style>
+
+    <Style Selector="Border.ActivePill">
+        <Setter Property="Padding" Value="10,4" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassChipSelectedBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="999" />
+    </Style>
+
+    <Style Selector="Border.StatCard">
+        <Setter Property="Margin" Value="4" />
+        <Setter Property="Padding" Value="14,11" />
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+    </Style>
+
+    <Style Selector="TextBlock.StatLabel">
+        <Setter Property="FontSize" Value="9.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.StatValue">
+        <Setter Property="FontSize" Value="19" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style Selector="TextBlock.StatHint">
+        <Setter Property="FontSize" Value="10.5" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style Selector="Border.FormCard">
+        <Setter Property="Margin" Value="4" />
+        <Setter Property="Padding" Value="16,14" />
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+    </Style>
+
+    <Style Selector="TextBlock.SectionLabel">
+        <Setter Property="Margin" Value="0,0,0,10" />
+        <Setter Property="FontSize" Value="9.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+    </Style>
+
+    <Style Selector="TextBlock.FieldLabel">
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="TextBlock.FieldHint">
+        <Setter Property="Margin" Value="0,2,16,0" />
+        <Setter Property="FontSize" Value="10.5" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style Selector="Grid.FormRow">
+        <Setter Property="Margin" Value="0,7" />
+    </Style>
+
+    <Style Selector="TabControl.GlassTabs">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="4,8,4,0" />
+    </Style>
+
+    <Style Selector="TabControl.GlassTabs > TabItem">
+        <Setter Property="Height" Value="38" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Border.PresenceDot">
+        <Style.Animations>
+            <Animation Duration="0:0:2.6" IterationCount="INFINITE">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Opacity" Value="0.5" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Border.PresenceHalo">
+        <Setter Property="Width" Value="7" />
+        <Setter Property="Height" Value="7" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassPresenceBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Style.Animations>
+            <Animation
+                Duration="0:0:2.8"
+                Easing="CubicEaseOut"
+                IterationCount="INFINITE">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.7" />
+                    <Setter Property="Width" Value="7" />
+                    <Setter Property="Height" Value="7" />
+                </KeyFrame>
+                <KeyFrame Cue="68%">
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Height" Value="20" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0" />
+                    <Setter Property="Width" Value="20" />
+                    <Setter Property="Height" Value="20" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Ellipse.AmbientGlow">
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Style.Animations>
+            <Animation
+                Duration="0:0:19"
+                Easing="SineEaseInOut"
+                IterationCount="INFINITE">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.72" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0.72" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Ellipse.AmbientGlow.GlowGold">
+        <Style.Animations>
+            <Animation
+                Duration="0:0:23"
+                Easing="SineEaseInOut"
+                IterationCount="INFINITE">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.68" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0.68" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Ellipse.AmbientGlow.GlowJade">
+        <Style.Animations>
+            <Animation
+                Duration="0:0:29"
+                Easing="SineEaseInOut"
+                IterationCount="INFINITE">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0.62" />
+                </KeyFrame>
+                <KeyFrame Cue="50%">
+                    <Setter Property="Opacity" Value="1" />
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="0.62" />
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Window">
+        <Setter Property="Background" Value="{DynamicResource GlassCanvasBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+    </Style>
+
+    <Style Selector="Border.GlassBar Menu">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="Border.GlassBar Menu > MenuItem">
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.14" />
+                <BrushTransition Property="Foreground" Duration="0:0:0.14" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Border.GlassBar Menu > MenuItem:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Border.GlassBar Menu > MenuItem:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Border.GlassBar.Compact Menu > MenuItem">
+        <Setter Property="Padding" Value="6,6" />
+        <Setter Property="FontSize" Value="11.5" />
+    </Style>
+    <Style Selector="Border.GlassBar.Compact Button.BarGhost">
+        <Setter Property="Padding" Value="8,0" />
+    </Style>
+
+    <Style Selector="NotificationCard">
+        <Setter Property="Margin" Value="10,64,10,10" />
+    </Style>
+
     <Style Selector="DataGrid">
-        <Setter Property="RowHeight" Value="28" />
-        <Setter Property="ScrollViewer.AllowAutoHide" Value="False" />
+        <Setter Property="RowHeight" Value="46" />
+        <Setter Property="ColumnHeaderHeight" Value="38" />
+        <Setter Property="ScrollViewer.AllowAutoHide" Value="True" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="RowBackground" Value="Transparent" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource GlassHairlineBrush}" />
+    </Style>
+
+    <Style Selector="DataGrid /template/ ScrollViewer">
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+
+    <Style Selector="DataGridRow /template/ Border#BackgroundBorder">
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.16" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="DataGridRow:pointerover /template/ Border#BackgroundBorder">
+        <Setter Property="Background" Value="{DynamicResource GlassRowHoverBrush}" />
+    </Style>
+    <Style Selector="DataGridRow:selected /template/ Border#BackgroundBorder">
+        <Setter Property="Background" Value="{DynamicResource GlassRowSelectedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassRowAccentBrush}" />
+        <Setter Property="BorderThickness" Value="2,0,0,0" />
+    </Style>
+    <Style Selector="DataGridRow:selected:pointerover /template/ Border#BackgroundBorder">
+        <Setter Property="Background" Value="{DynamicResource GlassRowSelectedHoverBrush}" />
     </Style>
 
     <Style Selector="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+        <Setter Property="FontSize" Value="10" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Padding" Value="8,5" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="SeparatorBrush" Value="Transparent" />
+        <Setter Property="AreSeparatorsVisible" Value="False" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="DataGridColumnHeader /template/ Thumb">
+        <Setter Property="Opacity" Value="0" />
+    </Style>
+
+    <Style Selector="DataGridCell /template/ Rectangle#PART_RightGridLine">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="DataGridCell:current /template/ Rectangle#CurrencyVisual">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style Selector="DataGridCell TextBlock">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+
+    <Style Selector="DataGridCell CheckBox:checked /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource GlassActionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionBrush}" />
+    </Style>
+    <Style Selector="DataGridCell CheckBox /template/ Path">
+        <Setter Property="Fill" Value="{DynamicResource GlassActionForegroundBrush}" />
+    </Style>
+
+    <Style Selector="CheckBox /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+    <Style Selector="CheckBox:pointerover /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="4" />
+    </Style>
+    <Style Selector="CheckBox:unchecked:pointerover /template/ Border#NormalRectangle">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+        <Setter Property="Background" Value="{DynamicResource GlassActionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionBrush}" />
+    </Style>
+    <Style Selector="CheckBox:checked /template/ Path">
+        <Setter Property="Fill" Value="{DynamicResource GlassActionForegroundBrush}" />
+    </Style>
+
+    <Style Selector="ProgressBar">
+        <Setter Property="Foreground" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+    <Style Selector="ProgressBar /template/ Border#PART_Indicator">
+        <Setter Property="Background" Value="{DynamicResource GlassThemeIconBrush}" />
+        <Setter Property="CornerRadius" Value="3" />
+    </Style>
+    <Style Selector="ProgressBar /template/ Border#PART_Track">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="CornerRadius" Value="3" />
+    </Style>
+
+    <Style Selector="TextBlock.GridHead">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
     <Style Selector="PathIcon">
         <Setter Property="Width" Value="16" />
         <Setter Property="Height" Value="16" />
         <Setter Property="Foreground" Value="{DynamicResource ButtonDefaultTertiaryForeground}" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.14" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button">
+        <Setter Property="CornerRadius" Value="9" />
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.14" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+                <TransformOperationsTransition
+                    Property="RenderTransform"
+                    Duration="0:0:0.12"
+                    Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.97)" />
+    </Style>
+    <Style Selector="Button:focus-visible">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+
+    <Style Selector="Button.Primary">
+        <Setter Property="Background" Value="{DynamicResource GlassActionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassActionForegroundBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.14" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+                <TransformOperationsTransition
+                    Property="RenderTransform"
+                    Duration="0:0:0.12"
+                    Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.Primary /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource GlassActionForegroundBrush}" />
+    </Style>
+    <Style Selector="Button.Primary:default">
+        <Setter Property="Background" Value="{DynamicResource GlassActionBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionBrush}" />
+    </Style>
+    <Style Selector="Button.Primary:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassActionHoverBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionHoverBrush}" />
+    </Style>
+    <Style Selector="Button.Primary:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassActionPressedBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassActionPressedBrush}" />
+    </Style>
+    <Style Selector="Button.Primary:disabled">
+        <Setter Property="Opacity" Value="0.45" />
+    </Style>
+
+    <Style Selector="Button.Soft">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+    <Style Selector="Button.Soft /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Button.Soft:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="Button.Soft:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+    </Style>
+    <Style Selector="Button.Soft:disabled">
+        <Setter Property="Opacity" Value="0.45" />
+    </Style>
+
+    <Style Selector="Button.Ghost">
+        <Setter Property="MinWidth" Value="96" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+    <Style Selector="Button.Ghost:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="Button.Ghost:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+    </Style>
+
+    <Style Selector="Button.IconButton.Danger:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+    </Style>
+    <Style Selector="Button.IconButton.Danger:pointerover PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassDangerBrush}" />
+    </Style>
+
+    <Style Selector="GroupBox">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="12,6,12,12" />
     </Style>
 
     <Style Selector="TextBox">
-        <Setter Property="ScrollViewer.AllowAutoHide" Value="False" />
+        <Setter Property="ScrollViewer.AllowAutoHide" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="TextBox:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="TextBox:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+
+    <Style Selector="ComboBox">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassHairlineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="ComboBox:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+    <Style Selector="ComboBox:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+
+    <Style Selector="NumericUpDown">
+        <Setter Property="ShowButtonSpinner" Value="False" />
+        <Setter Property="FontSize" Value="12.5" />
+    </Style>
+
+    <Style Selector="TabItem">
+        <Setter Property="FontSize" Value="12.5" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.14" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="TabItem:selected">
+        <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style Selector="MenuItem">
+        <Setter Property="FontSize" Value="12.5" />
     </Style>
 
     <Style Selector="ScrollViewer">
-        <Setter Property="AllowAutoHide" Value="False" />
+        <Setter Property="AllowAutoHide" Value="True" />
+    </Style>
+
+    <Style Selector="ScrollBar">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="ScrollBar:vertical">
+        <Setter Property="Width" Value="10" />
+    </Style>
+    <Style Selector="ScrollBar:horizontal">
+        <Setter Property="Height" Value="10" />
+    </Style>
+    <Style Selector="ScrollBar /template/ RepeatButton#PART_DecreaseButton">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="ScrollBar /template/ RepeatButton#PART_IncreaseButton">
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+    <Style Selector="ScrollBar /template/ Thumb">
+        <Setter Property="Background" Value="{DynamicResource GlassTextSecondaryBrush}" />
+        <Setter Property="Opacity" Value="0.35" />
+    </Style>
+    <Style Selector="ScrollBar:pointerover /template/ Thumb">
+        <Setter Property="Opacity" Value="0.7" />
+    </Style>
+    <Style Selector="ScrollBar:vertical /template/ Thumb /template/ Border">
+        <Setter Property="CornerRadius" Value="5" />
+    </Style>
+    <Style Selector="ScrollBar:horizontal /template/ Thumb /template/ Border">
+        <Setter Property="CornerRadius" Value="5" />
     </Style>
 
     <Style Selector="TabControl">
         <Setter Property="Theme" Value="{StaticResource LineTabControl}" />
+    </Style>
+    <Style Selector="TabControl.ConsoleTabs TabItem:selected /template/ Border#PART_RootBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+    <Style Selector="TabControl.GlassTabs TabItem:selected /template/ Border#PART_RootBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
     </Style>
 
     <Style Selector="Button.IconButton">
@@ -39,33 +811,144 @@
         <Setter Property="MinWidth" Value="{StaticResource IconButtonWidth}" />
         <Setter Property="Theme" Value="{DynamicResource BorderlessButton}" />
     </Style>
+    <Style Selector="Button.IconButton:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="RenderTransform" Value="scale(1.06)" />
+    </Style>
+    <Style Selector="Button.IconButton:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="RenderTransform" Value="scale(0.94)" />
+    </Style>
+    <Style Selector="Button.IconButton:pointerover PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+
+    <Style Selector="Button.ToolGlass">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+    <Style Selector="Button.ToolGlass:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassPanelBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+    <Style Selector="Button.ToolGlass:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+    </Style>
+
+    <Style Selector="Button.BarGhost">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="9" />
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <Style Selector="Button.BarGhost:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+    </Style>
+    <Style Selector="Button.BarGhost:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+    </Style>
+    <Style Selector="Button.BarGhost PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextSecondaryBrush}" />
+    </Style>
+    <Style Selector="Button.BarGhost:pointerover PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassTextPrimaryBrush}" />
+    </Style>
+
+    <Style Selector="Button.ConsolePill">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="11,0" />
+    </Style>
+    <Style Selector="Button.ConsolePill:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassPanelBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassThemeIconBrush}" />
+        <Setter Property="RenderTransform" Value="scale(1.03)" />
+    </Style>
+    <Style Selector="Button.ConsolePill:pressed">
+        <Setter Property="Background" Value="{DynamicResource GlassChipBrush}" />
+    </Style>
+    <Style Selector="Button.ConsolePill PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassThemeIconBrush}" />
+    </Style>
+
+    <Style Selector="Button.ThemeModeButton PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource GlassThemeIconBrush}" />
+        <Setter Property="RenderTransformOrigin" Value="50%,50%" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Foreground" Duration="0:0:0.14" />
+                <TransformOperationsTransition
+                    Property="RenderTransform"
+                    Duration="0:0:0.2"
+                    Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.ThemeModeButton:pointerover">
+        <Setter Property="Background" Value="{DynamicResource GlassInsetBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassBorderBrush}" />
+    </Style>
+
+    <Style Selector="Button.ThemeModeButton:pointerover PathIcon">
+        <Setter Property="RenderTransform" Value="rotate(14deg)" />
+    </Style>
 
     <Style Selector="Button.ConnectButton">
-        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Height" Value="30" />
-        <Setter Property="Padding" Value="14,2" />
+        <Setter Property="MinWidth" Value="98" />
+        <Setter Property="Padding" Value="16,1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="FontWeight" Value="SemiBold" />
         <Setter Property="FontSize" Value="12" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.16" />
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.16" />
+                <TransformOperationsTransition
+                    Property="RenderTransform"
+                    Duration="0:0:0.14"
+                    Easing="CubicEaseOut" />
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.ConnectButton Path">
+        <Setter Property="Fill" Value="#F2FFFFFF" />
+    </Style>
+    <Style Selector="Button.ConnectButton:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.98)" />
     </Style>
     <Style Selector="Button.ConnectButton:not(.connected)">
-        <Setter Property="Background" Value="#1E293B" />
+        <Setter Property="Background" Value="{DynamicResource GlassConnectIdleBrush}" />
         <Setter Property="Foreground" Value="#F8FAFC" />
-        <Setter Property="BorderBrush" Value="#475569" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassConnectIdleBorderBrush}" />
     </Style>
     <Style Selector="Button.ConnectButton:not(.connected):pointerover">
-        <Setter Property="Background" Value="#334155" />
-        <Setter Property="BorderBrush" Value="#64748B" />
+        <Setter Property="Background" Value="{DynamicResource GlassConnectIdleHoverBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassConnectActiveBorderBrush}" />
+        <Setter Property="RenderTransform" Value="scale(1.015)" />
     </Style>
     <Style Selector="Button.ConnectButton.connected">
-        <Setter Property="Background" Value="#047857" />
+        <Setter Property="Background" Value="{DynamicResource GlassConnectActiveBrush}" />
         <Setter Property="Foreground" Value="#FFFFFF" />
-        <Setter Property="BorderBrush" Value="#10B981" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassConnectActiveBorderBrush}" />
     </Style>
     <Style Selector="Button.ConnectButton.connected:pointerover">
-        <Setter Property="Background" Value="#B91C1C" />
-        <Setter Property="BorderBrush" Value="#EF4444" />
+        <Setter Property="Background" Value="{DynamicResource GlassConnectActiveHoverBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource GlassDangerBrush}" />
+        <Setter Property="RenderTransform" Value="scale(1.015)" />
     </Style>
 
 </Styles>

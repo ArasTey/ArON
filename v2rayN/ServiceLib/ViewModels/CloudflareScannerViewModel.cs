@@ -12,6 +12,12 @@ public partial class CloudflareScannerViewModel : MyReactiveObject, ICloseable
     public BulkObservableCollection<CloudflareIpResultItem> Results { get; } = [];
 
     [Reactive]
+    public partial int ResultCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
+    [Reactive]
     public partial int Port { get; set; } = 443;
 
     [Reactive]
@@ -61,6 +67,12 @@ public partial class CloudflareScannerViewModel : MyReactiveObject, ICloseable
 
     public CloudflareScannerViewModel()
     {
+        Results.CollectionChanged += (_, _) =>
+        {
+            ResultCount = Results.Count;
+            BlIsEmpty = ResultCount == 0;
+        };
+
         StartScanCmd = ReactiveCommand.CreateFromTask(async () =>
         {
             await StartScanAsync();

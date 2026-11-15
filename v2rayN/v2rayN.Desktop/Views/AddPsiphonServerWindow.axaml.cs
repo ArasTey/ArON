@@ -10,6 +10,7 @@ public partial class AddPsiphonServerWindow : WindowBase<AddPsiphonServerViewMod
         InitializeComponent();
 
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
 
         this.WhenActivated(disposables =>
         {

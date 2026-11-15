@@ -26,7 +26,6 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
             this.OneWayBind(ViewModel, vm => vm.SpeedProxyDisplay, v => v.txtSpeedProxyDisplay.Text).DisposeWith(disposables);
             this.OneWayBind(ViewModel, vm => vm.SpeedDirectDisplay, v => v.txtSpeedDirectDisplay.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.ToggleConnectCmd, v => v.btnConnect).DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.ShowBottomLog, v => v.togShowLog.IsChecked).DisposeWith(disposables);
 
             this.Bind(ViewModel, vm => vm.SystemProxySelected, v => v.cmbSystemProxy.SelectedIndex).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.SelectedRouting, v => v.cmbRoutings2.SelectedItem).DisposeWith(disposables);
@@ -49,6 +48,11 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
                 Dispatcher.UIThread.Post(RefreshIcon, DispatcherPriority.Default);
                 interaction.SetOutput(RxVoid.Default);
             }).DisposeWith(disposables);
+
+            ViewModel.WhenAnyValue(vm => vm.IsCompact)
+                .Subscribe(ApplyCompactLayout)
+                .DisposeWith(disposables);
+            ApplyCompactLayout(ViewModel.IsCompact);
         });
 
         //spEnableTun.IsVisible = (Utils.IsWindows() || AppHandler.Instance.IsAdministrator);
@@ -60,6 +64,14 @@ public partial class StatusBarView : ReactiveUserControl<StatusBarViewModel>
 
         // Because this view has not yet been initialized when DispatcherRefreshIconInteraction is first called.
         RefreshIcon();
+    }
+
+    private void ApplyCompactLayout(bool compact)
+    {
+        spInbound.IsVisible = !compact;
+        borderInbound.IsVisible = !compact;
+        cmbSystemProxy.Width = compact ? 176 : 182;
+        cmbRoutings2.Width = compact ? 114 : 150;
     }
 
     private void RefreshIcon()

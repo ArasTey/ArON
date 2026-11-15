@@ -31,6 +31,12 @@ public partial class AddGroupServerViewModel : MyReactiveObject, ICloseable
 
     public BulkObservableCollection<ProfileItem> AllProfilePreviewItemsObs { get; } = [];
 
+    [Reactive]
+    public partial int ChildCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
     public ReactiveCommand<RxVoid, RxVoid> AddCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> RemoveCmd { get; }
 
@@ -80,6 +86,12 @@ public partial class AddGroupServerViewModel : MyReactiveObject, ICloseable
 
         SelectedSource = profileItem.IndexId.IsNullOrEmpty() ? profileItem : JsonUtils.DeepCopy(profileItem);
         CoreType = (SelectedSource?.CoreType ?? ECoreType.Xray).ToString();
+
+        ChildItemsObs.CollectionChanged += (_, _) =>
+        {
+            ChildCount = ChildItemsObs.Count;
+            BlIsEmpty = ChildCount == 0;
+        };
 
         _ = Init();
     }

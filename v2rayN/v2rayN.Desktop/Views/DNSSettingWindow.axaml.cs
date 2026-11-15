@@ -13,6 +13,7 @@ public partial class DNSSettingWindow : WindowBase<DNSSettingViewModel>
         _config = AppManager.Instance.Config;
         Loaded += Window_Loaded;
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
 
         cmbDirectDNSStrategy.ItemsSource = Global.DomainStrategy;
         cmbRemoteDNSStrategy.ItemsSource = Global.DomainStrategy;
@@ -91,5 +92,10 @@ public partial class DNSSettingWindow : WindowBase<DNSSettingViewModel>
     private void Window_Loaded(object? sender, RoutedEventArgs e)
     {
         btnCancel.Focus();
+        Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+        {
+            scrollBasicDns.Offset = default;
+            scrollAdvancedDns.Offset = default;
+        }, Avalonia.Threading.DispatcherPriority.Background);
     }
 }

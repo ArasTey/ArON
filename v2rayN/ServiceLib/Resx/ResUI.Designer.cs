@@ -385,6 +385,15 @@ namespace ServiceLib.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No server selected.
+        /// </summary>
+        public static string NoServerSelected {
+            get {
+                return ResourceManager.GetString("NoServerSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Invalid backup file 的本地化字符串。
         /// </summary>
         public static string LocalRestoreInvalidZipTips {

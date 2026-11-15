@@ -9,6 +9,7 @@ public partial class CloudflareScannerWindow : WindowBase<CloudflareScannerViewM
     {
         InitializeComponent();
         btnClose.Click += (_, _) => Close();
+        btnCloseHeader.Click += (_, _) => Close();
 
         this.WhenActivated(disposables =>
         {

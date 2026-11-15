@@ -13,6 +13,7 @@ public partial class FullConfigTemplateWindow : WindowBase<FullConfigTemplateVie
         _config = AppManager.Instance.Config;
         Loaded += Window_Loaded;
         btnCancel.Click += (_, _) => Close();
+        btnCloseHeader.Click += (_, _) => Close();
 
         this.WhenActivated(disposables =>
         {

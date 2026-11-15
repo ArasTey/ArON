@@ -23,6 +23,7 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;
         lstProfiles.LoadingRow += LstProfiles_LoadingRow;
         lstProfiles.Sorting += LstProfiles_Sorting;
+        lstProfiles.SizeChanged += (_, e) => ApplyResponsiveColumns(e.NewSize.Width);
         if (_config.UiItem.EnableDragDropSort)
         {
             lstProfiles.SetValue(DragDrop.AllowDropProperty, true);
@@ -44,6 +45,11 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
             this.Bind(ViewModel, vm => vm.ServerFilter, v => v.txtServerFilter.Text).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnAddSub).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.EditSubCmd, v => v.btnEditSub).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.RefreshServersCmd, v => v.btnRefreshServers).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ImportClipboardCmd, v => v.btnImportClipboard).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ScanQrCmd, v => v.btnScanQr).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.btnNewGroupEmpty).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.ClearSearchCmd, v => v.btnClearSearch).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.EditSubCmd, v => v.menuSubEdit).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.AddSubCmd, v => v.menuSubAdd).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.DeleteSubCmd, v => v.menuSubDelete).DisposeWith(disposables);
@@ -187,6 +193,22 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
         if (lstProfiles.SelectedIndex >= 0)
         {
             lstProfiles.ScrollIntoView(lstProfiles.SelectedItem, null);
+        }
+    }
+
+    private void ApplyResponsiveColumns(double width)
+    {
+        SetColumnVisible("Traffic", width >= 1060);
+    }
+
+    private void SetColumnVisible(string tag, bool visible)
+    {
+        foreach (var column in lstProfiles.Columns)
+        {
+            if (column.Tag?.ToString() == tag)
+            {
+                column.IsVisible = visible;
+            }
         }
     }
 
@@ -386,7 +408,10 @@ public partial class ProfilesView : ReactiveUserControl<ProfilesViewModel>
                         }
                         else
                         {
-                            item2.Width = new DataGridLength(item.Width, DataGridLengthUnitType.Pixel);
+                            if (!item2.Width.IsStar)
+                            {
+                                item2.Width = new DataGridLength(item.Width, DataGridLengthUnitType.Pixel);
+                            }
                             item2.DisplayIndex = displayIndex++;
                         }
                         if (item.Name.StartsWith("to", StringComparison.CurrentCultureIgnoreCase))

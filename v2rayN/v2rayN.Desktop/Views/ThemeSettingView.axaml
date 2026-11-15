@@ -10,56 +10,71 @@
     x:DataType="vms:ThemeSettingViewModel"
     Design.DataContext="{x:Static dd:DesignData.ThemeSetting}"
     mc:Ignorable="d">
-    <UserControl.Styles>
-        <Style Selector="TextBlock">
-            <Setter Property="Width" Value="100" />
-        </Style>
-        <Style Selector="ComboBox">
-            <Setter Property="Width" Value="130" />
-        </Style>
-    </UserControl.Styles>
 
-    <Button Margin="{StaticResource MarginLr8}" Classes="IconButton">
+    <Button
+        Width="30"
+        Height="30"
+        MinWidth="30"
+        Margin="2,0,0,0"
+        Padding="0"
+        VerticalAlignment="Center"
+        Classes="IconButton BarGhost ThemeModeButton"
+        ToolTip.Tip="{x:Static resx:ResUI.TbSettingsTheme}">
         <Button.Content>
-            <PathIcon Data="{StaticResource SemiIconMore}">
-                <PathIcon.RenderTransform>
-                    <RotateTransform Angle="90" />
-                </PathIcon.RenderTransform>
-            </PathIcon>
+            <PathIcon Data="{DynamicResource GlassThemeIconGeometry}" />
         </Button.Content>
         <Button.Flyout>
-            <Flyout>
-                <StackPanel Margin="{StaticResource MarginTb8}">
-                    <StackPanel Orientation="Horizontal">
+            <Flyout Placement="BottomEdgeAlignedRight">
+                <StackPanel Width="290" Spacing="10">
+                    <StackPanel Spacing="2">
                         <TextBlock
-                            Margin="{StaticResource Margin4}"
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            Foreground="{DynamicResource GlassTextPrimaryBrush}"
+                            Text="Appearance" />
+                        <TextBlock
+                            FontSize="10.5"
+                            Foreground="{DynamicResource GlassTextSecondaryBrush}"
+                            Text="Changes apply instantly." />
+                    </StackPanel>
+
+                    <Border
+                        Height="1"
+                        Margin="0,2"
+                        Background="{DynamicResource GlassHairlineBrush}" />
+
+                    <Grid ColumnDefinitions="108,*">
+                        <TextBlock
                             VerticalAlignment="Center"
+                            Classes="FieldLabel"
                             Text="{x:Static resx:ResUI.TbSettingsTheme}" />
                         <ComboBox
                             x:Name="cmbCurrentTheme"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="108,*">
                         <TextBlock
-                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
+                            Classes="FieldLabel"
                             Text="{x:Static resx:ResUI.TbSettingsFontSize}" />
                         <ComboBox
                             x:Name="cmbCurrentFontSize"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch" />
+                    </Grid>
+
+                    <Grid ColumnDefinitions="108,*">
                         <TextBlock
-                            Margin="{StaticResource Margin4}"
                             VerticalAlignment="Center"
+                            Classes="FieldLabel"
                             Text="{x:Static resx:ResUI.TbSettingsLanguage}" />
                         <ComboBox
                             x:Name="cmbCurrentLanguage"
-                            Margin="{StaticResource Margin4}"
-                            HorizontalAlignment="Center" />
-                    </StackPanel>
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch" />
+                    </Grid>
                 </StackPanel>
             </Flyout>
         </Button.Flyout>

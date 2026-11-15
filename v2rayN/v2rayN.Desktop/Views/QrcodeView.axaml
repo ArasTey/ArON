@@ -8,24 +8,54 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <sys:Double x:Key="QrcodeWidth">400</sys:Double>
+        <sys:Double x:Key="QrcodeWidth">340</sys:Double>
     </UserControl.Resources>
 
-    <Grid Margin="{StaticResource Margin8}" RowDefinitions="Auto,Auto">
-        <Image
-            Name="imgQrcode"
-            Width="{StaticResource QrcodeWidth}"
-            Height="{StaticResource QrcodeWidth}" />
+    <Border
+        Background="{DynamicResource GlassDrawerBrush}"
+        BorderBrush="{DynamicResource GlassBorderBrush}"
+        BorderThickness="1"
+        BoxShadow="{DynamicResource GlassDrawerShadow}"
+        ClipToBounds="True"
+        CornerRadius="18">
+        <StackPanel Margin="20" Spacing="12">
+            <StackPanel Spacing="2">
+                <TextBlock
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    Foreground="{DynamicResource GlassTextPrimaryBrush}"
+                    Text="Scan to import" />
+                <TextBlock
+                    FontSize="11"
+                    Foreground="{DynamicResource GlassTextSecondaryBrush}"
+                    Text="Point your phone camera at the code." />
+            </StackPanel>
 
-        <TextBox
-            x:Name="txtContent"
-            Grid.Row="1"
-            Width="{StaticResource QrcodeWidth}"
-            MaxHeight="100"
-            Margin="{StaticResource MarginTb8}"
-            VerticalAlignment="Center"
-            IsReadOnly="True"
-            TextWrapping="WrapWithOverflow" />
+            <Border
+                Padding="14"
+                HorizontalAlignment="Center"
+                Background="White"
+                CornerRadius="14">
+                <Image
+                    Name="imgQrcode"
+                    Width="{StaticResource QrcodeWidth}"
+                    Height="{StaticResource QrcodeWidth}" />
+            </Border>
 
-    </Grid>
+            <TextBox
+                x:Name="txtContent"
+                Width="{StaticResource QrcodeWidth}"
+                MaxHeight="92"
+                Margin="0,2,0,0"
+                HorizontalAlignment="Center"
+                IsReadOnly="True"
+                TextWrapping="WrapWithOverflow" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                Classes="FieldHint"
+                Text="Click outside to close."
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Border>
 </UserControl>

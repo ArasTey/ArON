@@ -11,120 +11,104 @@
     Design.DataContext="{x:Static dd:DesignData.StatusBar}"
     Background="Transparent"
     mc:Ignorable="d">
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <LinearGradientBrush x:Key="GlassTintBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#F2FFFFFF" />
-                        <GradientStop Offset="0.5" Color="#E6EDF2F9" />
-                        <GradientStop Offset="1.0" Color="#DCE0E8F2" />
-                    </LinearGradientBrush>
-                    <LinearGradientBrush x:Key="GlassBorderBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#E6FFFFFF" />
-                        <GradientStop Offset="1.0" Color="#80708090" />
-                    </LinearGradientBrush>
-                    <BoxShadows x:Key="GlassBoxShadow">0 8 32 0 #26000000, inset 0 1 0 0 #FFFFFF</BoxShadows>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <LinearGradientBrush x:Key="GlassTintBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#EB262B3A" />
-                        <GradientStop Offset="0.5" Color="#E01E212D" />
-                        <GradientStop Offset="1.0" Color="#D9161822" />
-                    </LinearGradientBrush>
-                    <LinearGradientBrush x:Key="GlassBorderBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#8CFFFFFF" />
-                        <GradientStop Offset="1.0" Color="#38FFFFFF" />
-                    </LinearGradientBrush>
-                    <BoxShadows x:Key="GlassBoxShadow">0 8 32 0 #50000000, inset 0 1 0 0 #80FFFFFF</BoxShadows>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Default">
-                    <LinearGradientBrush x:Key="GlassTintBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#EB262B3A" />
-                        <GradientStop Offset="0.5" Color="#E01E212D" />
-                        <GradientStop Offset="1.0" Color="#D9161822" />
-                    </LinearGradientBrush>
-                    <LinearGradientBrush x:Key="GlassBorderBrush" StartPoint="0%,0%" EndPoint="0%,100%">
-                        <GradientStop Offset="0.0" Color="#8CFFFFFF" />
-                        <GradientStop Offset="1.0" Color="#38FFFFFF" />
-                    </LinearGradientBrush>
-                    <BoxShadows x:Key="GlassBoxShadow">0 8 32 0 #50000000, inset 0 1 0 0 #80FFFFFF</BoxShadows>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid Background="Transparent">
         <Border
             x:Name="borderGlass"
             HorizontalAlignment="Center"
-            Padding="14,6"
-            Background="{DynamicResource GlassTintBrush}"
-            BorderBrush="{DynamicResource GlassBorderBrush}"
-            BorderThickness="1"
-            CornerRadius="18"
-            BoxShadow="{DynamicResource GlassBoxShadow}">
+            Padding="14,7"
+            Classes="GlassBar">
             <DockPanel>
                 <StackPanel
-                    Margin="{StaticResource MarginLr8}"
-                    VerticalAlignment="Center"
-                    DockPanel.Dock="Right">
-                    <TextBlock x:Name="txtSpeedProxyDisplay" HorizontalAlignment="Right" />
-                    <Border Margin="1" />
-                    <TextBlock x:Name="txtSpeedDirectDisplay" HorizontalAlignment="Right" />
-                </StackPanel>
-
-                <StackPanel
-                    x:Name="spToggleLog"
-                    Margin="{StaticResource MarginLr8}"
+                    x:Name="spSpeeds"
+                    Margin="10,0,4,0"
                     VerticalAlignment="Center"
                     DockPanel.Dock="Right"
-                    Orientation="Horizontal">
+                    IsVisible="{Binding ShowTransferRates}"
+                    Spacing="1">
                     <TextBlock
-                        Margin="{StaticResource MarginLr4}"
-                        VerticalAlignment="Center"
+                        x:Name="txtSpeedProxyDisplay"
+                        HorizontalAlignment="Right"
+                        FontSize="11"
                         FontWeight="Medium"
-                        Text="Log" />
-                    <ToggleSwitch
-                        x:Name="togShowLog"
-                        Margin="{StaticResource Margin4}"
-                        HorizontalAlignment="Center"
-                        Theme="{DynamicResource SimpleToggleSwitch}"
-                        ToolTip.Tip="Toggle Log" />
+                        Foreground="{DynamicResource GlassTextPrimaryBrush}" />
+                    <TextBlock
+                        x:Name="txtSpeedDirectDisplay"
+                        HorizontalAlignment="Right"
+                        FontSize="10.5"
+                        Foreground="{DynamicResource GlassTextSecondaryBrush}" />
                 </StackPanel>
+                <Border
+                    x:Name="borderSpeeds"
+                    Width="1"
+                    Height="22"
+                    Margin="4,0,8,0"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource GlassHairlineBrush}"
+                    DockPanel.Dock="Right"
+                    IsVisible="{Binding ShowTransferRates}" />
 
                 <StackPanel
-                    Margin="{StaticResource MarginLr8}"
+                    x:Name="spInbound"
+                    Margin="4,0,10,0"
                     VerticalAlignment="Center"
-                    DockPanel.Dock="Left">
-                    <TextBlock x:Name="txtInboundDisplay" />
-                    <Border Margin="1" />
-                    <TextBlock x:Name="txtInboundLanDisplay" />
+                    DockPanel.Dock="Left"
+                    Spacing="1">
+                    <TextBlock
+                        x:Name="txtInboundDisplay"
+                        FontSize="10.5"
+                        Foreground="{DynamicResource GlassTextSecondaryBrush}" />
+                    <TextBlock
+                        x:Name="txtInboundLanDisplay"
+                        FontSize="10.5"
+                        Foreground="{DynamicResource GlassTextSecondaryBrush}" />
                 </StackPanel>
+                <Border
+                    x:Name="borderInbound"
+                    Width="1"
+                    Height="22"
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource GlassHairlineBrush}"
+                    DockPanel.Dock="Left" />
 
                 <StackPanel
                     x:Name="spEnableTun"
-                    Margin="{StaticResource MarginLr8}"
+                    Margin="4,0"
                     VerticalAlignment="Center"
                     DockPanel.Dock="Left"
                     Orientation="Horizontal">
                     <Button
                         x:Name="btnConnect"
                         Classes="ConnectButton"
-                        Classes.connected="{Binding IsConnected}"
-                        Content="{Binding ConnectButtonText}" />
+                        Classes.connected="{Binding IsConnected}">
+                        <StackPanel Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
+                            <Path
+                                Width="12"
+                                Height="12"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource ArONPowerGeometry}"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding ConnectButtonText}" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
 
                 <StackPanel
-                    Margin="{StaticResource MarginLr8}"
+                    Margin="4,0"
                     VerticalAlignment="Center"
                     DockPanel.Dock="Left"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal"
+                    Spacing="8">
                     <ComboBox
                         x:Name="cmbSystemProxy"
-                        Width="160"
-                        Margin="{StaticResource MarginLr8}"
+                        Width="182"
+                        Height="30"
+                        Background="{DynamicResource GlassInsetBrush}"
+                        BorderBrush="{DynamicResource GlassBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="10"
                         ToolTip.Tip="{x:Static resx:ResUI.menuSystemproxy}">
                         <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxyClear}" />
                         <ComboBoxItem Content="{x:Static resx:ResUI.menuSystemProxySet}" />
@@ -134,22 +118,34 @@
 
                     <ComboBox
                         x:Name="cmbRoutings2"
-                        Width="160"
-                        Margin="{StaticResource MarginLr8}"
+                        Width="150"
+                        Height="30"
+                        Background="{DynamicResource GlassInsetBrush}"
+                        BorderBrush="{DynamicResource GlassBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="10"
                         DisplayMemberBinding="{Binding Remarks}"
                         ItemsSource="{Binding RoutingItems}"
                         ToolTip.Tip="{x:Static resx:ResUI.menuRouting}" />
                 </StackPanel>
 
-                <StackPanel Margin="{StaticResource MarginLr8}" VerticalAlignment="Center">
+                <StackPanel
+                    Margin="10,0,4,0"
+                    VerticalAlignment="Center"
+                    Spacing="1"
+                    ToolTip.Tip="{Binding RunningServerToolTipText}">
                     <TextBlock
                         x:Name="txtRunningServerDisplay"
                         MaxWidth="260"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource GlassTextPrimaryBrush}"
                         TextTrimming="CharacterEllipsis" />
-                    <Border Margin="1" />
                     <TextBlock
                         x:Name="txtRunningInfoDisplay"
                         MaxWidth="260"
+                        FontSize="10.5"
+                        Foreground="{DynamicResource GlassTextSecondaryBrush}"
                         TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </DockPanel>

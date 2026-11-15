@@ -20,6 +20,7 @@ public partial class MessageBoxDialog : Window
         }
 
         Title = caption;
+        txtCaption.Text = caption;
         txtMessage.Text = message;
 
         btnYes.Click += BtnYes_Click;

@@ -14,6 +14,8 @@ public partial class CheckUpdateViewModel : MyReactiveObject
     public ReactiveCommand<RxVoid, RxVoid> CheckOnlyCmd { get; }
     [Reactive] public partial bool EnableCheckPreReleaseUpdate { get; set; }
     [Reactive] public partial bool EnableUpdateViaProxy { get; set; }
+    [Reactive] public partial int ComponentCount { get; set; }
+    [Reactive] public partial bool BlIsEmpty { get; set; }
 
     public CheckUpdateViewModel()
     {
@@ -59,6 +61,8 @@ public partial class CheckUpdateViewModel : MyReactiveObject
         models.Add(GetGeoFileCheckUpdateModel());
 
         CheckUpdateModels.ReplaceRange(models);
+        ComponentCount = models.Count;
+        BlIsEmpty = models.Count == 0;
     }
 
     private CheckUpdateModel GetCheckUpdateModel(ECoreType coreType)
@@ -80,7 +84,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             IsSelected = _config.CheckUpdateItem.SelectedCoreTypes?.Contains(coreType.ToString()) ?? true,
             CoreType = coreType,
             IsGeoFile = false,
-            Remarks = lastResult ?? ResUI.menuCheckUpdate,
+            Remarks = lastResult ?? "Ready to check",
         };
     }
 
@@ -91,7 +95,7 @@ public partial class CheckUpdateViewModel : MyReactiveObject
             IsSelected = _config.CheckUpdateItem.SelectedCoreTypes?.Contains(_geo) ?? true,
             CoreType = null,
             IsGeoFile = true,
-            Remarks = ResUI.menuCheckUpdate,
+            Remarks = "Geo data · ready to check",
         };
     }
 

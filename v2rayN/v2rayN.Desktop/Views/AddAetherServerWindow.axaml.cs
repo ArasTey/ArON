@@ -10,6 +10,7 @@ public partial class AddAetherServerWindow : WindowBase<AddAetherServerViewModel
         InitializeComponent();
 
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
 
         this.WhenActivated(disposables =>
         {

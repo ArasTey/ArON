@@ -9,6 +9,7 @@ public partial class PsiphonSettingWindow : WindowBase<PsiphonSettingViewModel>
         InitializeComponent();
 
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
 
         this.WhenActivated(disposables =>
         {

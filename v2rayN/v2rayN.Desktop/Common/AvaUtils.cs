@@ -41,13 +41,13 @@ internal class AvaUtils
 
     public static WindowIcon GetAppIcon(ESysProxyType sysProxyType)
     {
-        var fileName = Utils.GetPath("MehrON.ico");
+        var fileName = Utils.GetPath("ArON.ico");
         if (File.Exists(fileName))
         {
             return new(fileName);
         }
 
-        var uri = new Uri(Path.Combine(Global.AvaAssets, "MehrON.ico"));
+        var uri = new Uri(Path.Combine(Global.AvaAssets, "ArON.ico"));
         using var bitmap = new Bitmap(AssetLoader.Open(uri));
         return new(bitmap);
     }

@@ -20,6 +20,17 @@ public static class SysProxyHandler
             {
                 return false;
             }
+            if (Utils.IsMacOS())
+            {
+                if (forceDisable || !config.TunModeItem.EnableTun)
+                {
+                    await ProxySettingOSX.RestoreTunDns();
+                }
+                else
+                {
+                    await ProxySettingOSX.SetTunDns();
+                }
+            }
             switch (type)
             {
                 case ESysProxyType.ForcedChange when Utils.IsWindows():

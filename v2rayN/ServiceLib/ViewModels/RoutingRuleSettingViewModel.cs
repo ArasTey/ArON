@@ -21,6 +21,12 @@ public partial class RoutingRuleSettingViewModel : MyReactiveObject, ICloseable
 
     public IList<RulesItemModel> SelectedSources { get; set; }
 
+    [Reactive]
+    public partial int RuleCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
     public ReactiveCommand<RxVoid, RxVoid> RuleAddCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> ImportRulesFromFileCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> ImportRulesFromClipboardCmd { get; }
@@ -119,6 +125,8 @@ public partial class RoutingRuleSettingViewModel : MyReactiveObject, ICloseable
             models.Add(it);
         }
         RulesItems.ReplaceRange(models);
+        RuleCount = models.Count;
+        BlIsEmpty = models.Count == 0;
     }
 
     public async Task RuleEditAsync(bool blNew)

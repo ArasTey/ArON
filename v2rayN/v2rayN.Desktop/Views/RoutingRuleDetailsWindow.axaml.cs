@@ -10,6 +10,7 @@ public partial class RoutingRuleDetailsWindow : WindowBase<RoutingRuleDetailsVie
 
         Loaded += Window_Loaded;
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
         clbProtocol.SelectionChanged += ClbProtocol_SelectionChanged;
         clbInboundTag.SelectionChanged += ClbInboundTag_SelectionChanged;
 

@@ -13,7 +13,7 @@ public partial class BackupAndRestoreViewModel : MyReactiveObject
     public partial WebDavItem SelectedSource { get; set; }
 
     [Reactive]
-    public partial string OperationMsg { get; set; } = string.Empty;
+    public partial string OperationMsg { get; set; } = "Ready when you are.";
 
     public BackupAndRestoreViewModel()
     {
@@ -35,7 +35,7 @@ public partial class BackupAndRestoreViewModel : MyReactiveObject
         SelectedSource = JsonUtils.DeepCopy(_config.WebDavItem);
     }
 
-    private void DisplayOperationMsg(string msg = "")
+    private void DisplayOperationMsg(string msg = "Working…")
     {
         OperationMsg = msg;
     }

@@ -2,167 +2,211 @@
     x:Class="v2rayN.Desktop.Views.AddPsiphonServerWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:v2rayN.Desktop.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
     Title="Psiphon Shirokhorshid Server"
-    Width="650"
-    Height="520"
+    Width="780"
+    Height="700"
+    MinWidth="700"
+    MinHeight="600"
     x:DataType="vms:AddPsiphonServerViewModel"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel Margin="{StaticResource Margin8}">
-        <StackPanel
-            Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
-            DockPanel.Dock="Bottom"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnSave"
-                Width="100"
-                Content="{x:Static resx:ResUI.TbConfirm}"
-                IsDefault="True" />
-            <Button
-                x:Name="btnCancel"
-                Width="100"
-                Margin="{StaticResource MarginLr8}"
-                Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="True" />
-        </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="{StaticResource Margin8}"
-                    FontWeight="SemiBold"
-                    Text="Psiphon Tunnel Core (CDN Fronting Edition)" />
+    <Window.Resources>
+        <conv:EmptyTextConverter x:Key="StrategyTextConverter" />
+    </Window.Resources>
 
-                <!-- Remarks -->
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="{x:Static resx:ResUI.TbRemarks}" />
-                <TextBox
-                    x:Name="txtRemarks"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Width="380"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center" />
+    <Border
+        Margin="12"
+        Classes="WindowShell"
+        ClipToBounds="True">
+        <DockPanel>
+            <Border Classes="DialogHeader" DockPanel.Dock="Top">
+                <DockPanel>
+                    <Button
+                        x:Name="btnCloseHeader"
+                        VerticalAlignment="Center"
+                        Classes="IconButton ToolGlass"
+                        DockPanel.Dock="Right"
+                        ToolTip.Tip="Close">
+                        <PathIcon Data="{StaticResource SemiIconClose}" />
+                    </Button>
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <PathIcon
+                            Width="20"
+                            Height="20"
+                            Data="{StaticResource SemiIconGlobeStroked}"
+                            Foreground="{DynamicResource GlassThemeIconBrush}" />
+                        <StackPanel VerticalAlignment="Center" Spacing="1">
+                            <TextBlock Classes="WindowTitle" Text="Psiphon Shirokhorshid" />
+                            <TextBlock
+                                FontSize="10.5"
+                                Foreground="{DynamicResource GlassTextSecondaryBrush}"
+                                Text="CDN-fronted tunnel exposed as a local proxy." />
+                        </StackPanel>
+                        <Border Classes="CountPill" VerticalAlignment="Center">
+                            <TextBlock
+                                FontSize="10.5"
+                                FontWeight="SemiBold"
+                                Foreground="{DynamicResource GlassTextSecondaryBrush}"
+                                Text="Psiphon" />
+                        </Border>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
 
-                <!-- Egress Region -->
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="Egress Region" />
-                <ComboBox
-                    x:Name="cmbEgressRegion"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Width="200"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left" />
+            <Border
+                Margin="14,10,14,14"
+                Padding="14,8"
+                Classes="GlassInset"
+                DockPanel.Dock="Bottom">
+                <Grid ColumnDefinitions="*,Auto">
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <PathIcon
+                            Width="14"
+                            Height="14"
+                            VerticalAlignment="Center"
+                            Data="{StaticResource SemiIconInfoCircle}"
+                            Foreground="{DynamicResource GlassThemeIconBrush}" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Classes="PageSubtitle"
+                            Text="CDN fronting requires the shirokhorshid fork binary." />
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            x:Name="btnCancel"
+                            Width="104"
+                            Classes="Soft"
+                            Content="{x:Static resx:ResUI.TbCancel}"
+                            IsCancel="True" />
+                        <Button
+                            x:Name="btnSave"
+                            Width="128"
+                            Classes="Primary"
+                            Content="Add server"
+                            IsDefault="True" />
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-                <!-- Tunnel Pool Size -->
-                <TextBlock
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="Tunnel Pool Size" />
-                <TextBox
-                    x:Name="txtPoolSize"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Width="100"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center" />
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10,10,10,4" Spacing="0">
+                    <Border Classes="FormCard">
+                        <StackPanel>
+                            <TextBlock Classes="SectionLabel" Text="IDENTITY" />
+                            <Grid Classes="FormRow" ColumnDefinitions="150,*">
+                                <TextBlock Classes="FieldLabel" Text="{x:Static resx:ResUI.TbRemarks}" />
+                                <TextBox
+                                    x:Name="txtRemarks"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    PlaceholderText="Name this tunnel" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
 
-                <!-- CDN Fronting Enable -->
-                <TextBlock
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="CDN Fronting" />
-                <ToggleSwitch
-                    x:Name="togCdnFronting"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left" />
+                    <Border Classes="FormCard">
+                        <StackPanel>
+                            <TextBlock Classes="SectionLabel" Text="TUNNEL" />
 
-                <!-- CDN Fronting Edges -->
-                <TextBlock
-                    Grid.Row="5"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Top"
-                    Text="Edge IPs / CIDRs / SNI" />
-                <TextBox
-                    x:Name="txtCdnEdges"
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Width="380"
-                    Height="80"
-                    Margin="{StaticResource Margin4}"
-                    AcceptsReturn="True"
-                    HorizontalAlignment="Left"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Top"
-                    Watermark="Comma or newline separated: 104.18.0.0/13, example.cdn.com ..." />
+                            <Grid Classes="FormRow" ColumnDefinitions="150,*,150,*">
+                                <TextBlock Classes="FieldLabel" Text="Egress region" />
+                                <ComboBox
+                                    x:Name="cmbEgressRegion"
+                                    Grid.Column="1"
+                                    Width="200"
+                                    HorizontalAlignment="Left"
+                                    PlaceholderText="Automatic (fastest)">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate x:DataType="x:String">
+                                            <TextBlock Text="{Binding Converter={StaticResource StrategyTextConverter}, ConverterParameter='Automatic (fastest)'}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Margin="16,0,0,0"
+                                    Classes="FieldLabel"
+                                    Text="Tunnel pool" />
+                                <TextBox
+                                    x:Name="txtPoolSize"
+                                    Grid.Column="3"
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    PlaceholderText="4" />
+                            </Grid>
 
-                <!-- Local SOCKS Port -->
-                <TextBlock
-                    Grid.Row="6"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="Local SOCKS Port" />
-                <TextBox
-                    x:Name="txtPort"
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    Width="160"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center" />
+                            <Grid Classes="FormRow" ColumnDefinitions="150,*,150,*">
+                                <TextBlock Classes="FieldLabel" Text="Local SOCKS port" />
+                                <TextBox
+                                    x:Name="txtPort"
+                                    Grid.Column="1"
+                                    Width="140"
+                                    HorizontalAlignment="Left"
+                                    PlaceholderText="Auto" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Margin="16,0,0,0"
+                                    Classes="FieldLabel"
+                                    Text="{x:Static resx:ResUI.TbDisplayLog}" />
+                                <ToggleSwitch
+                                    x:Name="togDisplayLog"
+                                    Grid.Column="3"
+                                    HorizontalAlignment="Left" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
 
-                <!-- Display Log -->
-                <TextBlock
-                    Grid.Row="7"
-                    Grid.Column="0"
-                    Margin="{StaticResource Margin8}"
-                    VerticalAlignment="Center"
-                    Text="{x:Static resx:ResUI.TbDisplayLog}" />
-                <ToggleSwitch
-                    x:Name="togDisplayLog"
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    Margin="{StaticResource Margin4}"
-                    HorizontalAlignment="Left" />
+                    <Border Classes="FormCard">
+                        <StackPanel>
+                            <TextBlock Classes="SectionLabel" Text="CDN FRONTING" />
 
-                <!-- Info note -->
-                <TextBlock
-                    Grid.Row="8"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="{StaticResource Margin8}"
-                    FontStyle="Italic"
-                    Opacity="0.6"
-                    Text="Psiphon will expose a local SOCKS5/HTTP proxy. CDN Fronting requires the shirokhorshid fork binary." />
-            </Grid>
-        </ScrollViewer>
-    </DockPanel>
+                            <Grid Classes="FormRow" ColumnDefinitions="150,*">
+                                <TextBlock Classes="FieldLabel" Text="CDN fronting" />
+                                <ToggleSwitch
+                                    x:Name="togCdnFronting"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Left" />
+                            </Grid>
+
+                            <Grid Classes="FormRow" ColumnDefinitions="150,*">
+                                <TextBlock
+                                    VerticalAlignment="Top"
+                                    Classes="FieldLabel"
+                                    Text="Edge IPs / CIDRs / SNI" />
+                                <TextBox
+                                    x:Name="txtCdnEdges"
+                                    Grid.Column="1"
+                                    Height="96"
+                                    AcceptsReturn="True"
+                                    PlaceholderText="Comma or newline separated: 104.18.0.0/13, example.cdn.com ..."
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                            <TextBlock
+                                Margin="150,4,16,0"
+                                Classes="FieldHint"
+                                Text="Psiphon will expose a local SOCKS5/HTTP proxy on your machine."
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
 </Window>
