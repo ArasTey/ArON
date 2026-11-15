@@ -1,184 +1,51 @@
 <p align="center">
-  <img src="v2rayN/v2rayN.Desktop/Assets/MehrON-logo.png" width="160" height="160" alt="لوگوی MehrON" />
+  <img src="v2rayN/v2rayN.Desktop/Assets/ArON-logo.png" width="160" height="160" alt="ArON" />
 </p>
 
-<h1 align="center">MehrON</h1>
+<h1 align="center">ArON</h1>
 
 <p align="center">
-  <a href="https://github.com/yastorovsky/MehrON/releases/tag/v7.25.47"><img src="https://img.shields.io/badge/download-v7.25.47-green" alt="دانلود" /></a>
-  <img src="https://img.shields.io/badge/version-v7.25.47-blue" alt="نسخه" />
-  <a href="https://github.com/yastorovsky/MehrON/releases"><img src="https://img.shields.io/github/downloads/yastorovsky/MehrON/total?label=downloads" alt="تعداد دانلود" /></a>
-  <a href="https://github.com/yastorovsky/MehrON/actions/workflows/build.yml"><img src="https://github.com/yastorovsky/MehrON/actions/workflows/build.yml/badge.svg" alt="بیلد" /></a>
-  <a href="https://github.com/yastorovsky/MehrON/actions/workflows/test.yml"><img src="https://github.com/yastorovsky/MehrON/actions/workflows/test.yml/badge.svg" alt="تست‌ها" /></a>
-  <img src="https://img.shields.io/badge/platform-Windows%20x64-blue" alt="پلتفرم" />
-  <img src="https://img.shields.io/badge/platform-Linux%20x64-orange" alt="لینوکس" />
-  <img src="https://img.shields.io/badge/.NET-10.0-purple" alt=".NET 10" />
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-green" alt="لایسنس" /></a>
+  کلاینت VPN دسکتاپ با رابط شیشه‌ای (Liquid Glass) — بر پایهٔ MehrON (انشعاب v2rayN)،<br/>
+  بومی روی مک، راحت روی ویندوز.
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> | <strong>فارسی</strong>
+  <a href="https://github.com/ArasTey/ArON/releases/latest"><img src="https://img.shields.io/badge/دانلود-v7.25.58-green" alt="دانلود" /></a>
+  <img src="https://img.shields.io/badge/پلتفرم-macOS%20arm64%20%7C%20Windows%20x64-blue" alt="پلتفرم" />
+  <img src="https://img.shields.io/badge/.NET-10.0-512bd4" alt=".NET 10" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/لایسنس-GPL--3.0-green" alt="لایسنس" /></a>
 </p>
 
-<p align="center">
-  کلاینت دسکتاپ پروکسی برای ویندوز با پروکسی سیستمی، حالت TUN و پشتیبانی از چند هسته —
-  ساخته‌شده روی کدبیس PattN / Patterniha، بر پایه‌ی v2rayN.<br />
-  ⭐ همراه با <strong>SNI spoofing</strong>، <strong>ریلی MHR</strong> و <strong>سایفون شیروخورشید (CDN Fronting)</strong>، برای شرایط قطعی و اضطراری اینترنت.<br />
-  🪶 کلاینت سبک با مصرف رم پایین.
-</p>
+---
 
-## تصویر برنامه
+## دانلود
 
-![تصویر برنامه‌ی MehrON](docs/images/app-screenshot.png)
+آخرین نسخه از [Releases](https://github.com/ArasTey/ArON/releases):
+
+| پلتفرم | فایل |
+|---|---|
+| مک (Apple Silicon) | `MehrON-macos-arm64.dmg` — نصب با کشیدن و رها کردن، یا فایل `.zip` |
+| ویندوز ۶۴ بیتی | `MehrON-windows-64.zip` — پرتابل، همراه با هسته‌ها |
 
 ## ویژگی‌ها
 
-### اتصال
-- ایمپورت و مدیریت لینک‌های سابسکریپشن و لینک‌های اشتراکی پشتیبانی‌شده.
-- کنترل پروکسی سیستمی ویندوز با یک کلیک، همراه با استثناها و پشتیبانی از PAC.
-- حالت TUN اختیاری برای مسیردهی ترافیک کل دستگاه از طریق پروفایل انتخاب‌شده.
-- کنترل به‌روزرسانی جداگانه برای هر سابسکریپشن در تنظیمات Subscription Settings.
-- ⛓️ **زنجیره‌ی کانفیگ (Double Tunneling):** دو کانفیگ را به هم chain کنید — یک سرور میانی (ورودی) و یک سرور خروجی انتخاب کنید تا ترافیک کاملاً سمت کلاینت از مسیر `کلاینت -> میانی -> خروجی` عبور کند، بدون نیاز به تنظیم سمت سرور (Xray / sing-box).
+- **رابط شیشه‌ای** — ظاهر دسکتاپ مدرن با سه تم: روشن، تاریک و ایران باستان
+- **حالت TUN که واقعاً کار می‌کند** — روتینگ کامل سیستم با محافظت از نشت DNS: در حین اتصال همهٔ DNSهای سیستم از داخل تونل می‌گذرد و با قطع اتصال تنظیمات قبلی برمی‌گردد؛ سایت‌های فیلترشده مستقیم در مرورگر باز می‌شوند
+- **موتور چند‌هسته‌ای** — Xray، sing-box، mihomo و aether (با Psiphon داخلی) همراه برنامه؛ بدون نیاز به دانلود در اجرای اول
+- **حس بومی مک** — منوی واقعی اپلیکیشن با میانبرهای ⌘، حضور در Dock و ⌘-Tab، فونت سیستم و آیکون اختصاصی
+- **پشتیبانی از لینک اشتراک** — ورود لینک‌های `vless://`، `vmess://`، `trojan://` و `ss://`، سابسکریپشن، اسکن QR و کارت‌های تنظیمات رمزنگاری‌شده
 
-### هسته‌ها
-نسخه‌ی پرتابل به‌همراه ران‌تایم‌های آماده عرضه می‌شود — نیازی به دانلود جداگانه‌ی هسته نیست:
+## ساخت
 
-| هسته | کاربرد |
-| ---- | ------ |
-| Xray | VLESS / VMess / Trojan / Shadowsocks، از جمله Reality و XTLS |
-| sing-box | پروتکل‌های مدرن از جمله Hysteria2، TUIC، WireGuard |
-| mihomo | مسیردهی مبتنی بر قانون، سازگار با Clash Meta |
-| Aether | دور زدن فیلترینگ (MASQUE، WireGuard، پروتکل‌های pluggable transport) |
-| Psiphon Shirokhorshid | تونل ضدسانسور سایفون (فورک شیروخورشید) با انتخاب ریجن خروجی و CDN Fronting |
-| 🔥 SNI Spoofing | دور زدن DPI با دستکاری هدر IP/TCP — بدون نیاز به سرور |
-| 🛟 ریلی MHR | ریلی domain-fronted با Google Apps Script — فقط با یک اکانت رایگان گوگل |
-
-> [!IMPORTANT]
-> **🛡️ آماده برای قطعی و شرایط اضطراری اینترنت:** موتورهای SNI Spoofing، ریلی MHR و سایفون شیروخورشید (همراه با CDN Fronting) برای
-> شبکه‌های به‌شدت فیلترشده، اختلال شدید و قطعی جزئی / کامل اینترنت بین‌الملل (شبکه ملی) ساخته شده‌اند —
-> وقتی پروفایل‌ها و سرورهای عادی از کار می‌افتند، این حالت‌ها می‌توانند اتصال آزاد شما را حفظ کنند.
->
-> - **SNI Spoofing:** با دستکاری هدرهای IP/TCP فیلترینگ DPI را دور می‌زند. بدون نیاز به سابسکریپشن یا VPS.
-> - **MHR:** ترافیک را از طریق ریلی شخصی شما روی Google Apps Script با تکنیک domain fronting عبور می‌دهد
->   (`مرورگر -> پروکسی محلی -> مسیر Google -> ریلی Apps Script شما -> سایت مقصد`)؛
->   فیلتر شبکه فقط یک اتصال گوگلی می‌بیند. برای سایت‌هایی که IP گوگل را بلاک می‌کنند، exit node اختیاری Cloudflare / VPS قابل اضافه شدن است.
-> - **سایفون شیروخورشید (CDN Fronting):** تلفیق پروتکل‌های چندلایه‌ی مبهم‌سازی‌شده (Obfuscated) سایفون با CDN Fronting اختصاصی (تزریق رنج IPهای تمیز کلودفلر و SNI دلخواه)، جهت دور زدن مسدودسازی‌های سطح IP و روتینگ در زمان اینترنت ملی.
-
-**فقط در MehrON: ترکیب ابزارهای پیشرفته‌ی مقابله با سانسور از جمله [SNI Spoofing](https://github.com/patterniha/SNI-Spoofing/tree/main)، [MHR](https://github.com/masterking32/MasterHttpRelayVPN) و [سایفون شیروخورشید](https://github.com/shirokhorshid/psiphon-tunnel-core)**
-
-> [!TIP]
-> ریلیزهای رسمی پرتابل به‌همراه فایل‌های باینری هسته‌ها (پوشه‌ی `bin/`) و پایگاه‌داده‌های
-> مسیریابی به‌روز (`geoip.dat` و `geosite.dat`) عرضه می‌شوند — پیش از اولین اتصال نیازی به
-> دانلود جداگانه نیست.
-
-### مسیردهی و DNS
-- ویرایشگر بصری قوانین مسیردهی با پیش‌فرض‌های bypass / proxy / direct.
-- تنظیمات DNS با پشتیبانی از hijack و FakeIP.
-- موتور SNI spoofing و ریلی MHR از بخش هسته‌ها در بالا پیکربندی می‌شوند.
-
-### تنظیمات برای همه
-- تنظیمات بر اساس موضوع دسته‌بندی شده‌اند (اتصال، هسته، پروکسی سیستمی، TUN، ظاهر…).
-- **حالت مبتدی:** با غیرفعال‌کردن گزینه‌ی *Show advanced settings* در بالای پنجره‌ی Option،
-  گزینه‌های Fragment، MUX، منابع به‌روزرسانی و تنظیمات پیشرفته‌ی TUN مخفی می‌شوند.
-
-### تست و نگهداری
-- تست تأخیر و سرعت پروفایل با اندپوینت‌های قابل تنظیم.
-- آمار سرور، به‌روزرسانی خودکار سابسکریپشن، پشتیبان‌گیری و بازیابی.
-- کانال بتا برای بررسی خودکار به‌روزرسانی‌ها.
-
-## شروع سریع (نسخه‌ی پرتابل)
-
-بسته‌ی پرتابل ویندوز به‌صورت `MehrON-windows-64.zip` توزیع می‌شود
-(یک آرشیو، بدون زیپ تودرتو).
-
-1. آرشیو را در یک پوشه‌ی قابل‌نوشتن استخراج کنید.
-2. فایل `MehrON.exe` را اجرا کنید.
-3. هنگام استفاده از حالت TUN یا سایر قابلیت‌هایی که نیاز به دسترسی بالا دارند، پرامپت مدیر ویندوز را تأیید کنید.
-4. یک پروفایل ایمپورت کنید یا لینک سابسکریپشن اضافه کنید.
-
-> [!IMPORTANT]
-> حالت TUN یک آداپتور شبکه‌ی مجازی نصب می‌کند و به دسترسی مدیر (Administrator) نیاز دارد.
-> اگر فقط از حالت پروکسی سیستمی استفاده می‌کنید، نیازی به ارتقای دسترسی نیست.
-
-این ریلیز عمداً فاقد پروفایل، سابسکریپشن، لاگ یا فایل‌های پیکربندی ران‌تایمِ تولیدشده است.
-
-## نصب و راه‌اندازی در NixOS (نسخه‌ی FM Edition)
-
-مهرآن از سیستم‌عامل **NixOS** از طریق Nix Flakes و ماژول اختصاصی سیستم پشتیبانی می‌کند:
-
-### 🚀 اجرای سریع (بدون نیاز به نصب)
-اجرای مستقیم کلاینت:
 ```bash
-nix run github:yastorovsky/MehrON/Beta#default
+dotnet publish v2rayN/v2rayN.Desktop -c Release -r osx-arm64 --self-contained true \
+  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 ```
 
-### 📦 پیکربندی سیستمی (`configuration.nix`)
-افزودن ورودی flake در فایل تنظیمات:
-```nix
-inputs = {
-  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  mehron.url = "github:yastorovsky/MehrON/Beta";
-};
-```
-سپس فعال‌سازی ماژول بومی:
-```nix
-{ inputs, ... }: {
-  imports = [ inputs.mehron.nixosModules.default ];
+برای ویندوز از `-r win-x64` استفاده کنید. برنامه تنظیماتش را کنار فایل اجرایی ذخیره می‌کند (چیدمان پرتابل).
 
-  programs.mehron = {
-    enable = true;
-    tunMode = true; # فعال‌سازی دسترسی‌های شبکه برای حالت TUN
-  };
-}
-```
-یا نصب مستقیم برای کاربر:
-```bash
-nix profile install github:yastorovsky/MehrON/Beta#default
-```
+## لایسنس
 
-### 📥 دانلود مستقیم فایل ریلیز
-می‌توانید آرشیو اختصاصی **`MehrON-FM-Edition-nixos-64.tar.gz`** را مستقیماً از بخش [ریلیزهای گیت‌هاب](https://github.com/yastorovsky/MehrON/releases) دریافت و استفاده نمایید.
+GPL-3.0 — انشعابی از [MehrON](https://github.com/yastorovsky/MehrON) بر پایهٔ [v2rayN](https://github.com/2dust/v2rayN). با تشکر از هر دو جامعه و تیم‌های موتورهای هسته.
 
-## بیلد از سورس
-
-پیش‌نیازها:
-
-- ویندوز
-- .NET SDK نسخه‌ی 10.0 (به فایل `global.json` مراجعه کنید)
-
-بیلد کلاینت دسکتاپ WPF از ریشه‌ی ریپازیتوری:
-
-```powershell
-dotnet build .\v2rayN\v2rayN\v2rayN.csproj -c Release
-```
-
-خروجی در مسیر `v2rayN\v2rayN\bin\Release\` نوشته می‌شود.
-
-> [!NOTE]
-> فایل‌های باینری ران‌تایم توسط بیلد .NET تولید نمی‌شوند. یک ریلیز پرتابل باید فایل‌های
-> لازم Xray، sing-box، mihomo، Aether و Psiphon را زیر پوشه‌ی `bin` خودش داشته باشد تا به‌صورت
-> مستقل اجرا شود.
-
-## ساختار ریپازیتوری
-
-```text
-v2rayN/                      سورس اصلی کلاینت دسکتاپ
-_upstream_sni_spoofing/      سورس یکپارچگی SNI spoofing
-_upstream_mhr/               سورس یکپارچگی MHR
-_upstream_mhr_cfw/           سورس یکپارچگی MHR-CFW
-```
-
-## امنیت و حریم خصوصی
-
-> [!WARNING]
-> پروفایل‌های شخصی، آدرس‌های سابسکریپشن، پوشه‌های تولیدشده‌ی `guiNConfig`، لاگ‌ها یا
-> فایل‌های `config.json` حاوی اطلاعات ورود را کامیت یا منتشر نکنید. در نمونه‌ها از
-> placeholder استفاده کنید و داده‌های اتصال خصوصی را خارج از ریپازیتوری نگه دارید.
-
-## مشارکت
-
-از هر Pull Request و کمکی خوشحال می‌شیم — گزارش باگ، ترجمه، مستندات و ایده‌های جدید.
-
-## لایسنس و قدردانی
-
-MehrON تحت لایسنس GPL-3.0 توزیع می‌شود؛ به فایل [LICENSE](LICENSE) مراجعه کنید. این پروژه از کدبیس PattN / Patterniha ساخته شده و شامل یا یکپارچه با پروژه‌های شخص‌ثالثی است که لایسنس و نوتیس‌های خودشان را دارند، از جمله v2rayN، Xray-core، sing-box، Aether، Psiphon (شیروخورشید)، MHR، MHR-CFW و کامپوننت SNI spoofing.
+<p align="center"><a href="README.md">English</a></p>
