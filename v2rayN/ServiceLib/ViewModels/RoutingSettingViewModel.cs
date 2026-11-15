@@ -19,6 +19,18 @@ public partial class RoutingSettingViewModel : MyReactiveObject
     [Reactive]
     public partial string DomainStrategy4Singbox { get; set; }
 
+    [Reactive]
+    public partial int RuleCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
+    [Reactive]
+    public partial bool HasActiveRule { get; set; }
+
+    [Reactive]
+    public partial string ActiveRuleName { get; set; } = "None selected";
+
     public ReactiveCommand<RxVoid, RxVoid> RoutingAdvancedAddCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> RoutingAdvancedRemoveCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> RoutingAdvancedSetDefaultCmd { get; }
@@ -102,6 +114,10 @@ public partial class RoutingSettingViewModel : MyReactiveObject
             models.Add(it);
         }
         RoutingItems.ReplaceRange(models);
+        RuleCount = models.Count;
+        BlIsEmpty = models.Count == 0;
+        HasActiveRule = models.Any(t => t.IsActive);
+        ActiveRuleName = models.FirstOrDefault(t => t.IsActive)?.Remarks ?? "None selected";
     }
 
     /// <summary>

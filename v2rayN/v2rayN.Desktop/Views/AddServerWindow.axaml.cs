@@ -204,6 +204,7 @@ public partial class AddServerWindow : WindowBase<AddServerViewModel>
     private void InitializeData(ProfileItem profileItem)
     {
         Title = $"{profileItem.ConfigType}";
+        txtDialogTitle.Text = Title;
         var lstStreamSecurity = new List<string> { string.Empty, Global.StreamSecurity };
         switch (profileItem.ConfigType)
         {

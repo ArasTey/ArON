@@ -10,11 +10,11 @@ public partial class ProfilesSelectWindow : WindowBase<ProfilesSelectViewModel>
         InitializeComponent();
 
         btnCancel.Click += (_, _) => Close();
+        btnCloseHeader.Click += (_, _) => Close();
         btnAutofitColumnWidth.Click += BtnAutofitColumnWidth_Click;
         txtServerFilter.KeyDown += TxtServerFilter_KeyDown;
         lstProfiles.KeyDown += LstProfiles_KeyDown;
         lstProfiles.SelectionChanged += LstProfiles_SelectionChanged;
-        lstProfiles.LoadingRow += LstProfiles_LoadingRow;
         lstProfiles.Sorting += LstProfiles_Sorting;
         lstProfiles.DoubleTapped += LstProfiles_DoubleTapped;
 
@@ -59,11 +59,6 @@ public partial class ProfilesSelectWindow : WindowBase<ProfilesSelectViewModel>
         {
             ViewModel.SelectedProfiles = lstProfiles.SelectedItems.Cast<ProfileItemModel>().ToList();
         }
-    }
-
-    private void LstProfiles_LoadingRow(object? sender, DataGridRowEventArgs e)
-    {
-        e.Row.Header = $" {e.Row.Index + 1}";
     }
 
     private void LstProfiles_DoubleTapped(object? sender, TappedEventArgs e)

@@ -102,6 +102,12 @@ public partial class StatusBarViewModel : MyReactiveObject
     public partial bool IsConnected { get; set; }
 
     [Reactive]
+    public partial bool IsCompact { get; set; }
+
+    [Reactive]
+    public partial bool ShowTransferRates { get; set; }
+
+    [Reactive]
     public partial string ConnectButtonText { get; set; } = "Connect";
 
     public ReactiveCommand<RxVoid, RxVoid> ToggleConnectCmd { get; }
@@ -160,6 +166,9 @@ public partial class StatusBarViewModel : MyReactiveObject
                 ConnectButtonText = v ? "Disconnect" : "Connect";
                 await DoEnableTun();
             });
+
+        this.WhenAnyValue(x => x.IsConnected, x => x.IsCompact, (connected, compact) => connected && !compact)
+            .Subscribe(v => ShowTransferRates = v);
 
         this.WhenAnyValue(x => x.ShowBottomLog)
             .Subscribe(v =>
@@ -304,7 +313,8 @@ public partial class StatusBarViewModel : MyReactiveObject
         }
         else
         {
-            RunningServerDisplay = ResUI.CheckServerSettings;
+            RunningServerDisplay = ResUI.NoServerSelected;
+            RunningInfoDisplay = string.Empty;
             RunningServerToolTipText = GetRunningServerToolTipText(RunningServerDisplay);
         }
     }
@@ -516,24 +526,23 @@ public partial class StatusBarViewModel : MyReactiveObject
     public async Task InboundDisplayStatus()
     {
         StringBuilder sb = new();
-        sb.Append($"[{EInboundProtocol.mixed}:{AppManager.Instance.GetLocalPort(EInboundProtocol.socks)}");
+        sb.Append($"{EInboundProtocol.mixed} {AppManager.Instance.GetLocalPort(EInboundProtocol.socks)}");
         if (_config.Inbound.First().SecondLocalPortEnabled)
         {
-            sb.Append($",{AppManager.Instance.GetLocalPort(EInboundProtocol.socks2)}");
+            sb.Append($", {AppManager.Instance.GetLocalPort(EInboundProtocol.socks2)}");
         }
-        sb.Append(']');
-        InboundDisplay = $"{ResUI.LabLocal}:{sb}";
+        InboundDisplay = $"{ResUI.LabLocal} · {sb}";
 
         if (_config.Inbound.First().AllowLANConn)
         {
-            var lan = _config.Inbound.First().NewPort4LAN
-                ? $"[{EInboundProtocol.mixed}:{AppManager.Instance.GetLocalPort(EInboundProtocol.socks3)}]"
-                : $"[{EInboundProtocol.mixed}:{AppManager.Instance.GetLocalPort(EInboundProtocol.socks)}]";
-            InboundLanDisplay = $"{ResUI.LabLAN}:{lan}";
+            var lanPort = _config.Inbound.First().NewPort4LAN
+                ? AppManager.Instance.GetLocalPort(EInboundProtocol.socks3)
+                : AppManager.Instance.GetLocalPort(EInboundProtocol.socks);
+            InboundLanDisplay = $"{ResUI.LabLAN} · {EInboundProtocol.mixed} {lanPort}";
         }
         else
         {
-            InboundLanDisplay = $"{ResUI.LabLAN}:{Global.None}";
+            InboundLanDisplay = $"{ResUI.LabLAN} · {Global.None}";
         }
         await Task.CompletedTask;
     }

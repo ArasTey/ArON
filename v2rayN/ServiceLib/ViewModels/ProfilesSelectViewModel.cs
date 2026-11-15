@@ -35,6 +35,12 @@ public partial class ProfilesSelectViewModel : MyReactiveObject, ICloseable
     [Reactive]
     public partial string ServerFilter { get; set; }
 
+    [Reactive]
+    public partial int ResultCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
     // Include/Exclude filter for ConfigType
     [Reactive]
     public partial List<EConfigType> FilterConfigTypes { get; set; }
@@ -160,6 +166,8 @@ public partial class ProfilesSelectViewModel : MyReactiveObject, ICloseable
         var lstModel = await GetProfileItemsEx(_subIndexId, _serverFilter);
 
         ProfileItems.ReplaceRange(lstModel);
+        ResultCount = lstModel.Count;
+        BlIsEmpty = ResultCount == 0;
         if (lstModel.Count > 0)
         {
             var selected = lstModel.FirstOrDefault(t => t.IndexId == _config.IndexId);

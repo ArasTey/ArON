@@ -451,7 +451,7 @@
     <value>Local</value>
   </data>
   <data name="MsgServerTitle" xml:space="preserve">
-    <value>Filter, press Enter to execute</value>
+    <value>Search servers (Enter)</value>
   </data>
   <data name="menuCheckUpdate" xml:space="preserve">
     <value>Check Update</value>
@@ -2069,5 +2069,8 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   </data>
   <data name="TbPleaseSelectProfile" xml:space="preserve">
     <value>Please select a server profile</value>
+  </data>
+  <data name="NoServerSelected" xml:space="preserve">
+    <value>No server selected</value>
   </data>
 </root>

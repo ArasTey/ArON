@@ -11,35 +11,71 @@
     Title="{x:Static resx:ResUI.menuServers}"
     Width="900"
     Height="600"
+    MinWidth="820"
+    MinHeight="520"
     x:DataType="vms:AddServerViewModel"
     Design.DataContext="{x:Static dd:DesignData.AddServer}"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <DockPanel Margin="{StaticResource Margin8}">
-        <StackPanel
-            Margin="{StaticResource Margin4}"
-            HorizontalAlignment="Center"
-            DockPanel.Dock="Bottom"
-            Orientation="Horizontal">
-            <Button
-                x:Name="btnSave"
-                Width="100"
-                Content="{x:Static resx:ResUI.TbConfirm}"
-                IsDefault="True" />
-            <Button
-                x:Name="btnCancel"
-                Width="100"
-                Margin="{StaticResource MarginLr8}"
-                Content="{x:Static resx:ResUI.TbCancel}"
-                IsCancel="True" />
-        </StackPanel>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+    <Border
+        Margin="12"
+        Classes="WindowShell"
+        ClipToBounds="True">
+        <DockPanel>
+            <Border Classes="DialogHeader" DockPanel.Dock="Top">
+                <StackPanel
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <PathIcon
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource SemiIconServerStroked}"
+                        Foreground="{DynamicResource GlassThemeIconBrush}" />
+                    <TextBlock
+                        x:Name="txtDialogTitle"
+                        Classes="WindowTitle"
+                        Text="{x:Static resx:ResUI.menuServers}" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Padding="14,12"
+                BorderBrush="{DynamicResource GlassHairlineBrush}"
+                BorderThickness="0,1,0,0"
+                DockPanel.Dock="Bottom">
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Button
+                        x:Name="btnSave"
+                        MinWidth="96"
+                        Classes="Primary"
+                        Content="{x:Static resx:ResUI.TbConfirm}"
+                        IsDefault="True" />
+                    <Button
+                        x:Name="btnCancel"
+                        MinWidth="96"
+                        Classes="Ghost"
+                        Content="{x:Static resx:ResUI.TbCancel}"
+                        IsCancel="True" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Margin="14,12,14,14"
+                Padding="6"
+                Classes="GlassInset"
+                ClipToBounds="True"
+                CornerRadius="12">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
                 <Grid
                     Grid.Row="0"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="260,Auto,Auto"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
                     <TextBlock
@@ -49,12 +85,18 @@
                         Text="{x:Static resx:ResUI.menuServers}" />
                     <StackPanel
                         Grid.Row="0"
-                        Grid.Column="2"
-                        Orientation="Horizontal">
+                        Grid.Column="1"
+                        Margin="{StaticResource Margin4}"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource GlassTextSecondaryBrush}"
+                            Text="{x:Static resx:ResUI.TbCoreType}" />
                         <ComboBox
                             x:Name="cmbCoreType"
-                            Width="200"
-                            Margin="{StaticResource Margin4}"
+                            Width="180"
+                            PlaceholderText="{x:Static resx:ResUI.menuRegionalPresetsDefault}"
                             ToolTip.Tip="{x:Static resx:ResUI.TbCoreType}" />
                     </StackPanel>
 
@@ -68,7 +110,7 @@
                         x:Name="txtRemarks"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -81,7 +123,7 @@
                         x:Name="txtAddress"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -104,7 +146,7 @@
                 <Grid
                     x:Name="gridVMess"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="260,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -118,13 +160,14 @@
                         x:Name="txtId"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
                     <Button
                         x:Name="btnGUID"
                         Grid.Row="1"
                         Grid.Column="2"
                         Margin="{StaticResource MarginLr4}"
+                        Classes="Soft"
                         Content="{x:Static resx:ResUI.TbGUID}" />
 
                     <TextBlock
@@ -170,7 +213,7 @@
                 <Grid
                     x:Name="gridSs"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -184,7 +227,7 @@
                         x:Name="txtId3"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -229,7 +272,7 @@
                 <Grid
                     x:Name="gridSocks"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
@@ -243,7 +286,7 @@
                         x:Name="txtSecurity4"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -256,7 +299,7 @@
                         x:Name="txtId4"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -272,7 +315,7 @@
                         x:Name="txtHttpHeadersJson"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         MinHeight="100"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Stretch"
@@ -283,7 +326,7 @@
                 <Grid
                     x:Name="gridVLESS"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="260,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -297,13 +340,14 @@
                         x:Name="txtId5"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
                     <Button
                         x:Name="btnGUID5"
                         Grid.Row="1"
                         Grid.Column="2"
                         Margin="{StaticResource MarginLr4}"
+                        Classes="Soft"
                         Content="{x:Static resx:ResUI.TbGUID}" />
 
                     <TextBlock
@@ -329,7 +373,7 @@
                         x:Name="txtSecurity5"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -349,7 +393,7 @@
                 <Grid
                     x:Name="gridTrojan"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -363,7 +407,7 @@
                         x:Name="txtId6"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -395,7 +439,7 @@
                 <Grid
                     x:Name="gridHysteria2"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto,Auto"
+                    ColumnDefinitions="260,Auto,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
@@ -409,7 +453,7 @@
                         x:Name="txtId7"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
                     <Button
                         Grid.Row="1"
@@ -434,7 +478,7 @@
                                         Text="{x:Static resx:ResUI.TbPath7}" />
                                     <TextBox
                                         x:Name="txtPath7"
-                                        Width="400"
+                                        Width="340"
                                         Margin="{StaticResource Margin4}" />
                                     <TextBlock
                                         Margin="{StaticResource Margin4}"
@@ -458,10 +502,10 @@
                                         Text="{x:Static resx:ResUI.TbHy2RealmUrl}" />
                                     <TextBox
                                         x:Name="txtHy2RealmUrl"
-                                        Width="400"
+                                        Width="340"
                                         Margin="{StaticResource Margin4}" />
                                     <TextBlock
-                                        Width="400"
+                                        Width="340"
                                         Margin="{StaticResource Margin4}"
                                         VerticalAlignment="Center"
                                         Text="{x:Static resx:ResUI.TbHy2RealmUrlTip}"
@@ -481,7 +525,7 @@
                         x:Name="txtPorts7"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         PlaceholderText="1000-2000,3000,4000" />
                     <TextBlock
@@ -532,7 +576,7 @@
                 <Grid
                     x:Name="gridTuic"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto">
 
@@ -546,7 +590,7 @@
                         x:Name="txtId8"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -559,7 +603,7 @@
                         x:Name="txtSecurity8"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -578,7 +622,7 @@
                 <Grid
                     x:Name="gridWireguard"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -592,7 +636,7 @@
                         x:Name="txtId9"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -605,7 +649,7 @@
                         x:Name="txtPublicKey9"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -619,7 +663,7 @@
                         x:Name="txtPreSharedKey9"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -633,7 +677,7 @@
                         x:Name="txtPath9"
                         Grid.Row="4"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         PlaceholderText="0, 0, 0" />
 
@@ -647,7 +691,7 @@
                         x:Name="txtRequestHost9"
                         Grid.Row="5"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         PlaceholderText="Ipv4, Ipv6" />
 
@@ -676,7 +720,7 @@
                         x:Name="txtDns"
                         Grid.Row="7"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left"
                         PlaceholderText="1.1.1.1, 2606:4700:4700::1111" />
@@ -684,7 +728,7 @@
                 <Grid
                     x:Name="gridAnytls"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto">
 
@@ -698,13 +742,13 @@
                         x:Name="txtId11"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
                 </Grid>
                 <Grid
                     x:Name="gridNaive"
                     Grid.Row="2"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
                     <TextBlock
@@ -717,7 +761,7 @@
                         x:Name="txtId12"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -730,7 +774,7 @@
                         x:Name="txtSecurity12"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}" />
 
                     <TextBlock
@@ -798,7 +842,7 @@
                         Margin="{StaticResource Margin4}"
                         Text="{x:Static resx:ResUI.GbTransport}" />
 
-                    <Grid Grid.Row="1" ColumnDefinitions="300,Auto,Auto">
+                    <Grid Grid.Row="1" ColumnDefinitions="260,Auto,Auto">
                         <TextBlock
                             Grid.Column="0"
                             Margin="{StaticResource Margin4}"
@@ -821,7 +865,7 @@
                             x:Name="gridTransportRaw"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
-                            <Grid Grid.Row="0" ColumnDefinitions="300,Auto">
+                            <Grid Grid.Row="0" ColumnDefinitions="260,Auto">
                                 <TextBlock
                                     Grid.Row="0"
                                     Grid.Column="0"
@@ -839,7 +883,7 @@
                             <Grid
                                 x:Name="gridTransportRawHttp"
                                 Grid.Row="1"
-                                ColumnDefinitions="300,Auto"
+                                ColumnDefinitions="260,Auto"
                                 IsVisible="False"
                                 RowDefinitions="Auto,Auto">
                                 <TextBlock
@@ -852,7 +896,7 @@
                                     x:Name="txtRequestHostRaw"
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    Width="400"
+                                    Width="340"
                                     Margin="{StaticResource Margin4}" />
                                 <TextBlock
                                     Grid.Row="1"
@@ -864,14 +908,14 @@
                                     x:Name="txtPathRaw"
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    Width="400"
+                                    Width="340"
                                     Margin="{StaticResource Margin4}" />
                             </Grid>
                         </Grid>
 
                         <Grid
                             x:Name="gridTransportXhttp"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="260,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto,Auto">
                             <TextBlock
@@ -896,7 +940,7 @@
                                 x:Name="txtRequestHostXhttp"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                             <TextBlock
                                 Grid.Row="2"
@@ -908,7 +952,7 @@
                                 x:Name="txtPathXhttp"
                                 Grid.Row="2"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                             <TextBlock
                                 Grid.Row="3"
@@ -930,7 +974,7 @@
 
                         <Grid
                             x:Name="gridTransportKcp"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="260,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto">
                             <TextBlock
@@ -969,14 +1013,14 @@
                                 x:Name="txtKcpSeed"
                                 Grid.Row="2"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}"
                                 HorizontalAlignment="Left" />
                         </Grid>
 
                         <Grid
                             x:Name="gridTransportGrpc"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="260,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto,Auto">
                             <TextBlock
@@ -1001,7 +1045,7 @@
                                 x:Name="txtRequestHostGrpc"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                             <TextBlock
                                 Grid.Row="2"
@@ -1013,13 +1057,13 @@
                                 x:Name="txtPathGrpc"
                                 Grid.Row="2"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                         </Grid>
 
                         <Grid
                             x:Name="gridTransportWs"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="260,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
                             <TextBlock
@@ -1032,7 +1076,7 @@
                                 x:Name="txtRequestHostWs"
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                             <TextBlock
                                 Grid.Row="1"
@@ -1044,13 +1088,13 @@
                                 x:Name="txtPathWs"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                         </Grid>
 
                         <Grid
                             x:Name="gridTransportHttpupgrade"
-                            ColumnDefinitions="300,Auto"
+                            ColumnDefinitions="260,Auto"
                             IsVisible="False"
                             RowDefinitions="Auto,Auto">
                             <TextBlock
@@ -1063,7 +1107,7 @@
                                 x:Name="txtRequestHostHttpupgrade"
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                             <TextBlock
                                 Grid.Row="1"
@@ -1075,7 +1119,7 @@
                                 x:Name="txtPathHttpupgrade"
                                 Grid.Row="1"
                                 Grid.Column="1"
-                                Width="400"
+                                Width="340"
                                 Margin="{StaticResource Margin4}" />
                         </Grid>
                     </Grid>
@@ -1084,7 +1128,7 @@
                 <Grid
                     x:Name="gridFinalmask"
                     Grid.Row="5"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     RowDefinitions="Auto,Auto,Auto">
                     <TextBlock
                         Grid.Row="0"
@@ -1111,7 +1155,7 @@
                                 <StackPanel>
                                     <views:JsonEditor
                                         x:Name="txtFinalmask"
-                                        Width="400"
+                                        Width="340"
                                         MinHeight="100"
                                         Margin="{StaticResource Margin4}"
                                         HorizontalAlignment="Stretch"
@@ -1131,7 +1175,7 @@
                         x:Name="txtDialMode"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1155,7 +1199,7 @@
                 <Grid
                     x:Name="gridTls"
                     Grid.Row="7"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto">
 
                     <TextBlock
@@ -1174,7 +1218,7 @@
                 <Grid
                     x:Name="gridTlsMore"
                     Grid.Row="8"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -1188,7 +1232,7 @@
                         x:Name="txtSNI"
                         Grid.Row="1"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1228,7 +1272,7 @@
                         x:Name="txtCipherSuites"
                         Grid.Row="4"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1255,7 +1299,7 @@
                         x:Name="txtEchConfigList"
                         Grid.Row="6"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1269,7 +1313,7 @@
                         x:Name="txtVerifyPeerCertByName"
                         Grid.Row="7"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1304,7 +1348,7 @@
                                 <Flyout>
                                     <StackPanel>
                                         <TextBlock
-                                            Width="400"
+                                            Width="340"
                                             Margin="{StaticResource Margin4}"
                                             VerticalAlignment="Center"
                                             Text="{x:Static resx:ResUI.TbCertPinningTips}"
@@ -1313,14 +1357,16 @@
                                             <Button
                                                 x:Name="btnFetchCert"
                                                 Margin="{StaticResource Margin4}"
+                                                Classes="Soft"
                                                 Content="{x:Static resx:ResUI.TbFetchCert}" />
                                             <Button
                                                 x:Name="btnFetchCertChain"
                                                 Margin="{StaticResource Margin4}"
+                                                Classes="Soft"
                                                 Content="{x:Static resx:ResUI.TbFetchCertChain}" />
                                         </StackPanel>
                                         <TextBlock
-                                            Width="400"
+                                            Width="340"
                                             Margin="{StaticResource Margin4}"
                                             VerticalAlignment="Center"
                                             TextWrapping="Wrap">
@@ -1329,18 +1375,18 @@
                                         </TextBlock>
                                         <TextBox
                                             x:Name="txtCertSha256Pinning"
-                                            Width="400"
+                                            Width="340"
                                             Margin="{StaticResource Margin4}"
                                             HorizontalAlignment="Left" />
                                         <TextBlock
-                                            Width="400"
+                                            Width="340"
                                             Margin="{StaticResource Margin4}"
                                             VerticalAlignment="Center"
                                             Text="{x:Static resx:ResUI.TbFullCertTips}"
                                             TextWrapping="Wrap" />
                                         <TextBox
                                             x:Name="txtCert"
-                                            Width="400"
+                                            Width="340"
                                             Margin="{StaticResource Margin4}"
                                             AcceptsReturn="True"
                                             Classes="TextArea"
@@ -1354,7 +1400,7 @@
                 <Grid
                     x:Name="gridRealityMore"
                     Grid.Row="8"
-                    ColumnDefinitions="300,Auto"
+                    ColumnDefinitions="260,Auto"
                     IsVisible="False"
                     RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -1368,7 +1414,7 @@
                         x:Name="txtSNI2"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1395,7 +1441,7 @@
                         x:Name="txtPublicKey"
                         Grid.Row="2"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1423,7 +1469,7 @@
                         x:Name="txtSpiderX"
                         Grid.Row="4"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
 
@@ -1437,12 +1483,14 @@
                         x:Name="txtMldsa65Verify"
                         Grid.Row="5"
                         Grid.Column="1"
-                        Width="400"
+                        Width="340"
                         Margin="{StaticResource Margin4}"
                         HorizontalAlignment="Left" />
                 </Grid>
                 <Separator Grid.Row="9" Margin="{StaticResource MarginTb8}" />
-            </Grid>
-        </ScrollViewer>
-    </DockPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+        </DockPanel>
+    </Border>
 </Window>

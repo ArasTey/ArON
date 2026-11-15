@@ -28,6 +28,8 @@ public partial class MsgView : ReactiveUserControl<MsgViewModel>
                 kv => kv.Key,
                 kv => (IBrush)new SolidColorBrush(Color.Parse(kv.Value))
             ));
+
+        UpdateEmptyLogs();
     }
 
     private void ShowMsg(object msg)
@@ -44,6 +46,7 @@ public partial class MsgView : ReactiveUserControl<MsgViewModel>
         }
 
         txtMsg.AppendText(msg.ToString());
+        UpdateEmptyLogs();
         if (togScrollToEnd.IsChecked ?? true)
         {
             txtMsg.ScrollToEnd();
@@ -56,7 +59,12 @@ public partial class MsgView : ReactiveUserControl<MsgViewModel>
     public void ClearMsg()
     {
         txtMsg.Clear();
-        txtMsg.AppendText("----- Message cleared -----\n");
+        UpdateEmptyLogs();
+    }
+
+    private void UpdateEmptyLogs()
+    {
+        emptyLogsPanel.IsVisible = txtMsg.Document.TextLength == 0;
     }
 
     private void menuMsgViewSelectAll_Click(object? sender, RoutedEventArgs e)

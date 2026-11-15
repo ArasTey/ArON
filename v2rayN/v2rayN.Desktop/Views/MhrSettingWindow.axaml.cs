@@ -8,6 +8,7 @@ public partial class MhrSettingWindow : WindowBase<MhrSettingViewModel>
     {
         InitializeComponent();
         btnCancel.Click += (_, _) => Close();
+        btnCloseHeader.Click += (_, _) => Close();
         this.WhenActivated(disposables =>
         {
             this.BindCommand(ViewModel, vm => vm.SaveCmd, v => v.btnSave).DisposeWith(disposables);

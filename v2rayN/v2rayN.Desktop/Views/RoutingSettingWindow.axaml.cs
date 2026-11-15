@@ -15,6 +15,7 @@ public partial class RoutingSettingWindow : WindowBase<RoutingSettingViewModel>
         lstRoutings.SelectionChanged += lstRoutings_SelectionChanged;
         lstRoutings.DoubleTapped += LstRoutings_DoubleTapped;
         menuRoutingAdvancedSelectAll.Click += menuRoutingAdvancedSelectAll_Click;
+        menuCloseRouting.Click += MenuCloseRouting_Click;
 
         cmbdomainStrategy.ItemsSource = Global.DomainStrategies;
         cmbdomainStrategy4Singbox.ItemsSource = Global.DomainStrategies4Sbox;
@@ -92,6 +93,11 @@ public partial class RoutingSettingWindow : WindowBase<RoutingSettingViewModel>
     private void menuRoutingAdvancedSelectAll_Click(object? sender, RoutedEventArgs e)
     {
         lstRoutings.SelectAll();
+    }
+
+    private void MenuCloseRouting_Click(object? sender, RoutedEventArgs e)
+    {
+        Close();
     }
 
     private void lstRoutings_SelectionChanged(object? sender, SelectionChangedEventArgs e)

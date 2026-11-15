@@ -42,6 +42,60 @@ public partial class ProfilesViewModel : MyReactiveObject
     [Reactive]
     public partial string ServerFilter { get; set; }
 
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
+    [Reactive]
+    public partial bool BlIsFiltered { get; set; }
+
+    [Reactive]
+    public partial bool BlHasSummary { get; set; }
+
+    [Reactive]
+    public partial int ServerCount { get; set; }
+
+    [Reactive]
+    public partial int GroupCount { get; set; }
+
+    [Reactive]
+    public partial int OnlineCount { get; set; }
+
+    [Reactive]
+    public partial string OnlineHint { get; set; } = "No servers yet";
+
+    [Reactive]
+    public partial string FastestDelayText { get; set; } = "—";
+
+    [Reactive]
+    public partial string FastestServerName { get; set; } = "Run a latency test";
+
+    [Reactive]
+    public partial string ActiveServerName { get; set; } = "None selected";
+
+    [Reactive]
+    public partial bool HasActiveServer { get; set; }
+
+    [Reactive]
+    public partial string TodayUpText { get; set; } = "—";
+
+    [Reactive]
+    public partial string TodayDownText { get; set; } = "—";
+
+    [Reactive]
+    public partial string TodayTrafficHint { get; set; } = "Statistics off";
+
+    [Reactive]
+    public partial string HeaderSummary { get; set; } = "Fresh workspace — add your first node";
+
+    [Reactive]
+    public partial string GroupHint { get; set; } = "All servers";
+
+    [Reactive]
+    public partial string EmptyTitle { get; set; } = "No servers yet";
+
+    [Reactive]
+    public partial string EmptyDescription { get; set; } = "Bring your first node in from a share link or QR code.";
+
     #endregion ObservableCollection
 
     #region Menu
@@ -87,6 +141,11 @@ public partial class ProfilesViewModel : MyReactiveObject
     public ReactiveCommand<RxVoid, RxVoid> AddSubCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> EditSubCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> DeleteSubCmd { get; }
+
+    public ReactiveCommand<RxVoid, RxVoid> RefreshServersCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ImportClipboardCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ScanQrCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ClearSearchCmd { get; }
 
     #endregion Menu
 
@@ -238,6 +297,27 @@ public partial class ProfilesViewModel : MyReactiveObject
             await DeleteSubAsync();
         });
 
+        RefreshServersCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await RefreshServers();
+        });
+        ImportClipboardCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            AppEvents.AddServerViaClipboardRequested.Publish();
+            await Task.CompletedTask;
+        });
+        ScanQrCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            StatusBarViewModel.Instance.AddServerViaScanRequested.Publish();
+            await Task.CompletedTask;
+        });
+        ClearSearchCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            _serverFilter = string.Empty;
+            ServerFilter = string.Empty;
+            await RefreshServers();
+        });
+
         #endregion WhenAnyValue && ReactiveCommand
 
         #region AppEvents
@@ -298,6 +378,7 @@ public partial class ProfilesViewModel : MyReactiveObject
         {
             item.IpInfo = result.IpInfo ?? string.Empty;
         }
+        UpdateSummary();
         await Task.CompletedTask;
     }
 
@@ -319,6 +400,7 @@ public partial class ProfilesViewModel : MyReactiveObject
                 item.TodayUp = Utils.HumanFy(update.TodayUp);
                 item.TotalDown = Utils.HumanFy(update.TotalDown);
                 item.TotalUp = Utils.HumanFy(update.TotalUp);
+                UpdateSummary();
             }
         }
         catch
@@ -363,6 +445,9 @@ public partial class ProfilesViewModel : MyReactiveObject
         var lstModel = await GetProfileItemsEx(_config.SubIndexId, _serverFilter);
 
         ProfileItems.ReplaceRange(lstModel ?? []);
+        BlIsFiltered = _serverFilter.IsNotEmpty();
+        BlIsEmpty = ProfileItems.Count == 0;
+        UpdateSummary();
         if (lstModel?.Count > 0)
         {
             ProfileItemModel? selected = null;
@@ -378,12 +463,102 @@ public partial class ProfilesViewModel : MyReactiveObject
         await DispatcherRefreshServersBizInteraction.HandleSafe(RxVoid.Default);
     }
 
+    private void UpdateSummary()
+    {
+        var count = ProfileItems.Count;
+        ServerCount = count;
+        BlHasSummary = count > 0;
+
+        var online = ProfileItems.Where(t => t.Delay > 0).OrderBy(t => t.Delay).ToList();
+        OnlineCount = online.Count;
+        OnlineHint = count == 0
+            ? "Import or add a server"
+            : online.Count == 0
+                ? "No latency data yet"
+                : $"{online.Count} responding";
+
+        var fastest = online.FirstOrDefault();
+        FastestDelayText = fastest == null ? "—" : $"{fastest.Delay} ms";
+        FastestServerName = fastest?.Remarks ?? (count > 0 ? "Run a latency test" : "No servers to scan");
+
+        var active = ProfileItems.FirstOrDefault(t => t.IsActive);
+        HasActiveServer = active != null;
+        ActiveServerName = active?.Remarks ?? "None selected";
+
+        GroupHint = _config.SubIndexId.IsNullOrEmpty()
+            ? "All servers"
+            : SelectedSub?.Remarks ?? "All servers";
+        HeaderSummary = count == 0
+            ? "Fresh workspace — add your first node"
+            : string.Join(
+                " · ",
+                new[]
+                {
+                    $"{count} {(count == 1 ? "node" : "nodes")}",
+                    GroupCount > 0 ? $"{GroupCount} {(GroupCount == 1 ? "group" : "groups")}" : null,
+                    online.Count > 0 ? $"fastest {fastest!.Delay} ms" : "run a latency test",
+                }.Where(t => t != null));
+
+        if (BlIsFiltered)
+        {
+            EmptyTitle = "No matches";
+            EmptyDescription = $"Nothing matches “{_serverFilter}”. Try another name or address, or clear the search.";
+        }
+        else
+        {
+            EmptyTitle = "No servers yet";
+            EmptyDescription = "Bring your first node in from a share link or QR code. Group your servers to keep regions tidy.";
+        }
+
+        try
+        {
+            if (count > 0 && _config.GuiItem.EnableStatistics)
+            {
+                var ids = ProfileItems.Select(t => t.IndexId).ToHashSet();
+                var stats = StatisticsManager.Instance.ServerStat?
+                    .Where(t => ids.Contains(t.IndexId)).ToList() ?? [];
+                var up = stats.Sum(t => t.TodayUp);
+                var down = stats.Sum(t => t.TodayDown);
+                if (up + down > 0)
+                {
+                    TodayUpText = Utils.HumanFy(up);
+                    TodayDownText = Utils.HumanFy(down);
+                    TodayTrafficHint = "Proxy traffic today";
+                }
+                else
+                {
+                    TodayUpText = "—";
+                    TodayDownText = "—";
+                    TodayTrafficHint = "No traffic yet";
+                }
+            }
+            else
+            {
+                TodayUpText = "—";
+                TodayDownText = "—";
+                TodayTrafficHint = "Statistics off";
+            }
+        }
+        catch
+        {
+            TodayUpText = "—";
+            TodayDownText = "—";
+            TodayTrafficHint = "No traffic data";
+        }
+
+        if (TodayTrafficHint == "Proxy traffic today")
+        {
+            HeaderSummary += $" · ↑ {TodayUpText} ↓ {TodayDownText}";
+        }
+    }
+
     public async Task RefreshSubscriptions()
     {
         var subItems = await AppManager.Instance.SubItems();
         subItems.Insert(0, new SubItem { Remarks = ResUI.AllGroupServers });
 
         SubItems.ReplaceRange(subItems);
+        GroupCount = Math.Max(0, SubItems.Count - 1);
 
         SelectedSub = (_config.SubIndexId.IsNotEmpty()
                         ? subItems.FirstOrDefault(t => t.Id == _config.SubIndexId)
@@ -427,10 +602,10 @@ public partial class ProfilesViewModel : MyReactiveObject
                         DelayVal = t33?.Delay != 0 ? $"{t33?.Delay}" : string.Empty,
                         SpeedVal = t33?.Speed > 0 ? $"{t33?.Speed}" : t33?.Message ?? string.Empty,
                         IpInfo = t33?.IpInfo ?? string.Empty,
-                        TodayDown = t22 == null ? "" : Utils.HumanFy(t22.TodayDown),
-                        TodayUp = t22 == null ? "" : Utils.HumanFy(t22.TodayUp),
-                        TotalDown = t22 == null ? "" : Utils.HumanFy(t22.TotalDown),
-                        TotalUp = t22 == null ? "" : Utils.HumanFy(t22.TotalUp)
+                        TodayDown = t22 == null ? "—" : Utils.HumanFy(t22.TodayDown),
+                        TodayUp = t22 == null ? "—" : Utils.HumanFy(t22.TodayUp),
+                        TotalDown = t22 == null ? "—" : Utils.HumanFy(t22.TotalDown),
+                        TotalUp = t22 == null ? "—" : Utils.HumanFy(t22.TotalUp)
                     }).OrderBy(t => t.Sort).ToList();
 
         return lstModel;

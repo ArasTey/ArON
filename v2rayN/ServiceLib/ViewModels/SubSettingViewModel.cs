@@ -10,6 +10,18 @@ public partial class SubSettingViewModel : MyReactiveObject
     [Reactive]
     public partial SubItem SelectedSource { get; set; }
 
+    [Reactive]
+    public partial int SubCount { get; set; }
+
+    [Reactive]
+    public partial int EnabledCount { get; set; }
+
+    [Reactive]
+    public partial bool BlIsEmpty { get; set; }
+
+    [Reactive]
+    public partial string SummaryText { get; set; } = "No subscriptions yet";
+
     public IList<SubItem> SelectedSources { get; set; }
 
     public ReactiveCommand<RxVoid, RxVoid> SubAddCmd { get; }
@@ -66,6 +78,12 @@ public partial class SubSettingViewModel : MyReactiveObject
     public async Task RefreshSubItems()
     {
         SubItems.ReplaceRange(await AppManager.Instance.SubItems());
+        SubCount = SubItems.Count;
+        EnabledCount = SubItems.Count(t => t.Enabled);
+        BlIsEmpty = SubItems.Count == 0;
+        SummaryText = SubCount == 0
+            ? "Add a source to start syncing automatically."
+            : $"{SubCount} {(SubCount == 1 ? "subscription" : "subscriptions")} · {EnabledCount} auto-updating";
     }
 
     public async Task EditSubAsync(bool blNew)

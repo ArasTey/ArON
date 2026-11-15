@@ -24,8 +24,10 @@ public static class ProxySettingLinux
             ? customSystemProxyScriptPath
             : await FileUtils.CreateLinuxShellFile(_proxySetFileName, EmbedUtils.GetEmbedText(Global.ProxySetLinuxShellFileName), false);
 
-        // TODO: temporarily notify which script is being used
-        NoticeManager.Instance.SendMessage(fileName);
+        var message = fileName == customSystemProxyScriptPath
+            ? $"Custom system proxy script - {Path.GetFileName(fileName)}"
+            : $"System proxy script - {Path.GetFileName(fileName)}";
+        NoticeManager.Instance.SendMessageEx(message);
 
         await Utils.GetCliWrapOutput(fileName, args);
     }

@@ -6,7 +6,7 @@
     xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
     xmlns:semi="https://irihi.tech/semi"
     xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
-    Name="MehrON"
+    Name="ArON"
     x:DataType="vms:StatusBarViewModel"
     RequestedThemeVariant="Default">
     <Application.Resources>
@@ -28,7 +28,7 @@
             <Setter Property="Background" Value="{DynamicResource SemiColorFill0}" />
 
             <Setter Property="dialogHost:DialogHostStyle.BoxShadow" Value="{DynamicResource SemiShadowElevated}" />
-            <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="6" />
+            <Setter Property="dialogHost:DialogHostStyle.CornerRadius" Value="14" />
         </Style>
     </Application.Styles>
 
@@ -36,7 +36,7 @@
         <TrayIcons>
             <TrayIcon
                 Command="{Binding NotifyLeftClickCmd}"
-                Icon="/Assets/MehrON.ico"
+                Icon="/Assets/ArON.ico"
                 ToolTipText="{Binding RunningServerToolTipText}">
                 <TrayIcon.Menu>
                     <NativeMenu>

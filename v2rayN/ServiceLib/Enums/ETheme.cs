@@ -5,6 +5,7 @@ public enum ETheme
     FollowSystem,
     Dark,
     Light,
+    AncientIran,
     Aquatic,
     Desert,
     Dusk,

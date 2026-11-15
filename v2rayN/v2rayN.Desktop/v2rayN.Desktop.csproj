@@ -2,14 +2,14 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<ApplicationIcon>Assets\MehrON.ico</ApplicationIcon>
+		<ApplicationIcon>Assets\ArON.ico</ApplicationIcon>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<AssemblyName>MehrON</AssemblyName>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<CETCompat>false</CETCompat>
-		<AssemblyTitle>MehrON</AssemblyTitle>
-		<Product>MehrON</Product>
+		<AssemblyTitle>ArON</AssemblyTitle>
+		<Product>ArON</Product>
 		<ApplicationManifest>..\v2rayN\app.manifest</ApplicationManifest>
 	</PropertyGroup>
 
@@ -49,6 +49,9 @@
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Assets\MehrON.ico">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Assets\ArON.ico">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<Compile Update="Views\FullConfigTemplateWindow.axaml.cs">

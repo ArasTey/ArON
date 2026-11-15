@@ -17,6 +17,7 @@ public partial class GlobalHotkeySettingWindow : WindowBase<GlobalHotkeySettingV
         Loaded += Window_Loaded;
         Closing += (s, e) => HotkeyManager.Instance.IsPause = false;
         btnCancel.Click += (s, e) => Close();
+        btnCloseHeader.Click += (s, e) => Close();
 
         this.WhenActivated(disposables =>
         {

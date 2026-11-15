@@ -35,6 +35,9 @@ public partial class SubSettingWindow : WindowBase<SubSettingViewModel>
             this.BindCommand(ViewModel, vm => vm.SubShareCmd, v => v.menuSubShare2).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubUpdateCmd, v => v.menuSubUpdate2).DisposeWith(disposables);
             this.BindCommand(ViewModel, vm => vm.SubUpdateViaProxyCmd, v => v.menuSubUpdateViaProxy2).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.SubUpdateCmd, v => v.menuSubUpdate).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.SubUpdateViaProxyCmd, v => v.menuSubUpdateViaProxy).DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.SubAddCmd, v => v.btnAddSubEmpty).DisposeWith(disposables);
 
             ViewModel.ShowYesNoInteraction.RegisterHandler(async interaction =>
             {

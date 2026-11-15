@@ -2,24 +2,24 @@ namespace v2rayN.Desktop.Common;
 
 public static class AppBuilderExtension
 {
-    private static readonly string DefaultFontFamilyName =
+    private static readonly string CjkFontFamilyName =
         Path.Combine(Global.AvaAssets, "Fonts#Noto Sans SC");
 
     public static AppBuilder WithFontByDefault(this AppBuilder appBuilder)
     {
-        var fallbacks = new List<FontFallback>();
+        // Use the platform's real UI font so the app reads as native, not web.
+        var defaultFamilyName = OperatingSystem.IsWindows() ? "Segoe UI" : ".AppleSystemUIFont";
 
-        var notoSansSc = new FontFamily(DefaultFontFamilyName);
-
-        fallbacks.Add(new FontFallback
+        var fallbacks = new List<FontFallback>
         {
-            FontFamily = notoSansSc
-        });
+            new() { FontFamily = new FontFamily(CjkFontFamilyName) }
+        };
 
         if (OperatingSystem.IsWindows())
         {
             AddFontFallback(fallbacks, "Segoe UI Emoji");
             AddFontFallback(fallbacks, "Segoe UI Symbol");
+            AddFontFallback(fallbacks, "Microsoft YaHei UI");
         }
         else if (OperatingSystem.IsMacOS())
         {
@@ -34,7 +34,7 @@ public static class AppBuilderExtension
 
         return appBuilder.With(new FontManagerOptions
         {
-            DefaultFamilyName = DefaultFontFamilyName,
+            DefaultFamilyName = defaultFamilyName,
             FontFallbacks = fallbacks.ToArray()
         });
     }
